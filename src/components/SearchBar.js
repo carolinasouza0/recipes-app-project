@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { fetchApiMeals, fetchApiDrinks } from '../utils/FetchAPI';
+// import { fetchApiMeals, fetchApiDrinks } from '../utils/FetchAPI';
 
 function SearchBar({ showSearchBar }) {
   return (
