@@ -1,7 +1,7 @@
 function DoneRecipes() {
   return (
     <div>
-      DoneRecipes
+      DoneRecipess
     </div>
   );
 }
