@@ -7,6 +7,7 @@ import searchIcon from '../images/searchIcon.svg';
 function Header({ title }) {
   const history = useHistory();
   const [searchIconCondition, setSearchIconCondition] = useState(true);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   useEffect(() => {
     if (title === 'Done Recipes' || title === 'Profile'
@@ -34,6 +35,7 @@ function Header({ title }) {
           searchIconCondition && (
             <button
               type="button"
+              onClick={ () => (setShowSearchBar(!showSearchBar)) }
             >
               <img
                 src={ searchIcon }
@@ -44,6 +46,7 @@ function Header({ title }) {
           )
         }
       </div>
+      {/* <SearchBar showSearchBar={ showSearchBar } /> */}
     </header>
   );
 }
