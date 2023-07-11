@@ -3,15 +3,24 @@ import { useState, useMemo } from 'react';
 import UserContext from './UserContext';
 
 function UserProvider({ children }) {
+  const [objInicial, setObjInicial] = useState({
+    dataMeals: [],
+    dataDrinks: [],
+  });
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const store = useMemo(() => ({
+    objInicial,
+    setObjInicial,
     email,
     setEmail,
     password,
     setPassword,
-  }), [email, password]);
+    loading,
+    setLoading,
+  }), [email, loading, objInicial, password]);
   return (
     <UserContext.Provider value={ store }>
       {children}

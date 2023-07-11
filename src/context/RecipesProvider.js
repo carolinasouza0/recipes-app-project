@@ -3,12 +3,14 @@ import { useMemo, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
+  // const [objInicial, setObjInicial] = useState({});
   const [searchType, setSearchType] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [routes, setRoutes] = useState('meals');
 
   const store = useMemo(() => ({
+
     searchType,
     setSearchType,
     searchInput,
