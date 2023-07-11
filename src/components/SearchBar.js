@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { useContext /* useEffect */ } from 'react';
-import { fetchApiMeals /* fetchApiDrinks */ } from '../utils/FetchAPI';
-// import { useHistory } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { decideFatch } from '../utils/FetchAPI';
 import RecipesContext from '../context/RecipesContext';
+// import RecipeDetails from '../pages/RecipeDetails';
 
 function SearchBar({ showSearchBar }) {
 //   const history = useHistory();
@@ -12,12 +13,24 @@ function SearchBar({ showSearchBar }) {
     searchInput,
     setSearchInput,
     setRecipes,
+    setRoutes,
+    routes,
+    recipes,
   } = useContext(RecipesContext);
 
-  //   useEffect(() => {
-  //     if (history.location.pathname === '/meals') setRoutes('meal');
-  //     if (history.location.pathname === '/drinks') setRoutes('drinks');
-  //   });
+  const history = useHistory();
+  // const id = history.location.pathname === '/meals' ? 'idMeal' : 'idDrink';
+
+  useEffect(() => {
+    if (history.location.pathname === '/meals') {
+      setRoutes('meals');
+    }
+    if (history.location.pathname === '/drinks') {
+      setRoutes('drinks');
+    }
+  }, []);
+
+  console.log(routes);
 
   const getSearchAPI = async () => {
     if (searchType === 'first-letter' && searchInput.length !== 1) {
@@ -30,12 +43,15 @@ function SearchBar({ showSearchBar }) {
       || (searchType === 'name')
       || (searchType === 'first-letter' && searchInput.length === 1)
     ) {
-      const newRecipes = await fetchApiMeals(searchInput, searchType);
+      const newRecipes = await decideFatch(searchInput, searchType, routes);
       setRecipes(newRecipes);
+      // console.log(newRecipes);
     } else {
       global.alert('Invalid search type');
     }
   };
+
+  console.log(recipes);
 
   return (
     <div>
@@ -93,6 +109,15 @@ function SearchBar({ showSearchBar }) {
           <button onClick={ getSearchAPI } data-testid="exec-search-btn">
             Search
           </button>
+          {
+            // recipes.length === 1 ?
+            //   <RecipeDetails />
+            // history.push(`/${routes}/${recipes[id]}`)
+            // : (
+            //   recipes.map((rec, index) => <div key={ index }>
+            //     { rec.idMeal } </div>)
+            // )
+          }
         </div>
       )}
     </div>

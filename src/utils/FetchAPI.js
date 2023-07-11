@@ -45,3 +45,10 @@ export const fetchApiDrinks = async (searchInput, searchType) => {
     return data.drinks;
   }
 };
+
+export const decideFatch = (searchInput, searchType, routes) => {
+  if (routes === 'meals') {
+    return fetchApiMeals(searchInput, searchType);
+  }
+  return fetchApiDrinks(searchInput, searchType);
+};
