@@ -6,7 +6,7 @@ import Drinks from './Drinks';
 function Recipes({ type }) {
   return (
     <div>
-      { (type === 'meal') ? <Meals /> : <Drinks /> }
+      { (type === 'meals') ? <Meals /> : <Drinks /> }
     </div>
   );
 }

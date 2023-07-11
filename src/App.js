@@ -17,11 +17,15 @@ function App() {
       inicio
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/meals" render={ () => <Recipes type="meal" /> } />
-        <Route path="/meals/:id-da-receita" component={ RecipeDetails } />
+        <Route path="/meals" render={ () => <Recipes type="meals" /> } />
+        <Route exact path="/meals/:id" render={ () => <RecipeDetails type="meal" /> } />
+        <Route
+          exact
+          path="/drinks/:id"
+          render={ () => <RecipeDetails type="drinks" /> }
+        />
         <Route path="/meals/:id-da-receita/in-progress" component={ RecipeInProgress } />
         <Route path="/drinks" render={ () => <Recipes type="drinks" /> } />
-        <Route path="/drinks/id-da-receita" component={ RecipeDetails } />
         <Route path="/drinks/:id-da-receita/in-progress" component={ RecipeInProgress } />
         <Route path="/done-recipes" component={ DoneRecipes } />
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />

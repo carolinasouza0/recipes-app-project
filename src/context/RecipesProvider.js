@@ -6,7 +6,7 @@ function RecipesProvider({ children }) {
   const [searchType, setSearchType] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [recipes, setRecipes] = useState([]);
-  // const [routes, setRoutes] = useState([]);
+  const [routes, setRoutes] = useState('/meals');
 
   const store = useMemo(() => ({
     searchType,
@@ -15,9 +15,9 @@ function RecipesProvider({ children }) {
     setSearchInput,
     setRecipes,
     recipes,
-    // routes,
-    // setRoutes,
-  }), [searchType, searchInput, recipes]);
+    routes,
+    setRoutes,
+  }), [recipes, routes, searchInput, searchType]);
 
   return (
     <RecipesContext.Provider
