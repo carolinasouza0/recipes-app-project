@@ -1,7 +1,11 @@
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+
 function RecipeDetails() {
+  const { id } = useParams();
+
   return (
     <div>
-      RecipeDetails
+      <p>{ id }</p>
     </div>
   );
 }

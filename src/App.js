@@ -18,9 +18,11 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/meals" render={ () => <Recipes type="meals" /> } />
-        <Route exact path="/meals/:id" render={ () => <RecipeDetails type="meal" /> } />
         <Route
-          exact
+          path="/meals/:id"
+          render={ () => <RecipeDetails type="meals" /> }
+        />
+        <Route
           path="/drinks/:id"
           render={ () => <RecipeDetails type="drinks" /> }
         />

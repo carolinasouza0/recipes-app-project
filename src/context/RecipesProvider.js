@@ -6,7 +6,7 @@ function RecipesProvider({ children }) {
   const [searchType, setSearchType] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [recipes, setRecipes] = useState([]);
-  const [routes, setRoutes] = useState('/meals');
+  const [routes, setRoutes] = useState('meals');
 
   const store = useMemo(() => ({
     searchType,
