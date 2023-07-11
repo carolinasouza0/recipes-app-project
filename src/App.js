@@ -14,10 +14,9 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div>
-      inicio
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/meals" render={ () => <Recipes type="meals" /> } />
+        <Route exact path="/meals" render={ () => <Recipes type="meals" /> } />
         <Route
           path="/meals/:id"
           render={ () => <RecipeDetails type="meals" /> }
@@ -26,8 +25,12 @@ function App() {
           path="/drinks/:id"
           render={ () => <RecipeDetails type="drinks" /> }
         />
-        <Route path="/meals/:id-da-receita/in-progress" component={ RecipeInProgress } />
-        <Route path="/drinks" render={ () => <Recipes type="drinks" /> } />
+        <Route
+          exact
+          path="/meals/:id-da-receita/in-progress"
+          component={ RecipeInProgress }
+        />
+        <Route exact path="/drinks" render={ () => <Recipes type="drinks" /> } />
         <Route path="/drinks/:id-da-receita/in-progress" component={ RecipeInProgress } />
         <Route path="/done-recipes" component={ DoneRecipes } />
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />

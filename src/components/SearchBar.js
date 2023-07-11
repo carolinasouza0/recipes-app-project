@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { decideFatch } from '../utils/FetchAPI';
 import RecipesContext from '../context/RecipesContext';
+import Card from './Card';
 // import RecipeDetails from '../pages/RecipeDetails';
 
 function SearchBar({ showSearchBar }) {
@@ -51,13 +52,12 @@ function SearchBar({ showSearchBar }) {
         history.push(`/${routes}/${id}`);
       }
     } else {
-      global.alert('Invalid search type');
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   };
 
   console.log(recipes);
-
-  // const id = routes === '/meals' ? 'idMeal' : 'idDrink';
+  const limite = 12;
 
   return (
     <div>
@@ -115,15 +115,18 @@ function SearchBar({ showSearchBar }) {
           <button onClick={ getSearchAPI } data-testid="exec-search-btn">
             Search
           </button>
-          {/* {
-            recipes.length === 1 ? <Redirect to={ `/${routes}/${recipes[0][id]}` } /> : (
-              recipes.map((rec, index) => (
-                <div key={ index }>
-                  { rec[id] }
-                </div>
+          {
+            recipes.length > 1 && (
+              recipes.slice(0, limite).map((item, index) => (
+                <Card
+                  key={ index }
+                  item={ item }
+                  index={ index }
+                  route={ routes }
+                />
               ))
             )
-          } */}
+          }
         </div>
       )}
     </div>
