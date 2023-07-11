@@ -46,13 +46,15 @@ function SearchBar({ showSearchBar }) {
       const newRecipes = await decideFatch(searchInput, searchType, routes);
       setRecipes(newRecipes);
 
-      if (newRecipes.length === 1) {
+      if (newRecipes === null || newRecipes.length === 0) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else if (newRecipes.length === 1) {
         const recipe = newRecipes[0];
         const id = routes === 'meals' ? recipe.idMeal : recipe.idDrink;
         history.push(`/${routes}/${id}`);
       }
     } else {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      global.alert('Sorry, we haven\'t found any recipes for these filters teste.');
     }
   };
 
@@ -116,7 +118,7 @@ function SearchBar({ showSearchBar }) {
             Search
           </button>
           {
-            recipes.length > 1 && (
+            (recipes !== null) && (
               recipes.slice(0, limite).map((item, index) => (
                 <Card
                   key={ index }
