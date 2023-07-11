@@ -52,3 +52,15 @@ export const decideFatch = (searchInput, searchType, routes) => {
   }
   return fetchApiDrinks(searchInput, searchType);
 };
+
+export const getDetailsRecipe = async (type, id) => {
+  const url = type === 'meals'
+    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const recipe = type === 'meals'
+    ? data.meals
+    : data.drinks;
+  return recipe;
+};
