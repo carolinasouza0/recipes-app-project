@@ -1,13 +1,28 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const store = useMemo(() => {
+  const [searchType, setSearchType] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [recipes, setRecipes] = useState([]);
+  // const [routes, setRoutes] = useState([]);
 
-  }, []);
+  const store = useMemo(() => ({
+    searchType,
+    setSearchType,
+    searchInput,
+    setSearchInput,
+    setRecipes,
+    recipes,
+    // routes,
+    // setRoutes,
+  }), [searchType, searchInput, recipes]);
+
   return (
-    <RecipesContext.Provider value={ store }>
+    <RecipesContext.Provider
+      value={ store }
+    >
       {children }
     </RecipesContext.Provider>
   );
