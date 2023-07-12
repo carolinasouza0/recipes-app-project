@@ -1,4 +1,8 @@
-function RecipeInProgress() {
+import React from 'react';
+import PropTypes from 'prop-types';
+
+function RecipeInProgress(type) {
+  const recipeType = type === 'meals' ? 'meals ' : 'drinks';
   return (
     <div>
       <img
@@ -10,6 +14,9 @@ function RecipeInProgress() {
         data-testid="recipe-title"
       >
         Recipe Name
+        {' '}
+        { recipeType }
+
       </h1>
       <button
         data-testid="share-btn"
@@ -30,5 +37,9 @@ function RecipeInProgress() {
     </div>
   );
 }
+
+RecipeInProgress.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default RecipeInProgress;
