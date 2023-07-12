@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Card({ item, index, route }) {
   const mealOrDrink = route === 'meals' ? 'Meal' : 'Drink';
+
   const idRoute = `id${mealOrDrink}`;
 
   return (
