@@ -5,7 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 
 function BtnCategory({ categoryName, route }) {
   const {
-    // isFilter,
+    isFilter,
     setIsFilter,
     // filteredCategory,
     setFilteredCategory,
@@ -15,7 +15,7 @@ function BtnCategory({ categoryName, route }) {
     const categoryFiltered = await fetchCategoryDecide(categorySelect, route);
     // setFilteredCategory([...filteredCategory, categoryFiltered]);
     setFilteredCategory(categoryFiltered);
-    setIsFilter(true);
+    setIsFilter(!isFilter);
   };
 
   return (
