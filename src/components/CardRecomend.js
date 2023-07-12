@@ -27,13 +27,13 @@ function CardRecomend({ type }) {
   return (
     <div
       className="carousel"
-      data-testid="recomendation-card" // Coloquei esse data-testid para passar no avaliador, mas não passou e eu não sei porque
+
     >
       {
         recomends.map((recipe, index) => (
           <div
             key={ index }
-            data-testid={ `${index}-recomendation-card` }
+            data-testid={ `${index}-recommendation-card` }
             className="carousel-inner"
           >
             <img
@@ -41,7 +41,7 @@ function CardRecomend({ type }) {
               alt={ recipe[`str${typeOfRecipe}`] }
               className="recomendation-img"
             />
-            <h3 data-testid={ `${index}-recomendation-title` }>
+            <h3 data-testid={ `${index}-recommendation-title` }>
               { recipe[`str${typeOfRecipe}`] }
             </h3>
           </div>

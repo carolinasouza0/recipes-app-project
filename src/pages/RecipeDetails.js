@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
@@ -10,10 +10,10 @@ function RecipeDetails({ type }) {
   const [nameBtn, setNameBtn] = useState('Start Recipe');
   const [showBtn, setShowBtn] = useState(true);
   const { id } = useParams();
+  const history = useHistory();
 
   const recipeType = type === 'meals' ? 'meals' : 'drinks';
   const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
-  const storageType = type === 'meals' ? 'meals' : 'drinks';
 
   const getRecipe = async () => {
     const newRecipe = await getDetailsRecipe(recipeType, id);
@@ -32,7 +32,7 @@ function RecipeDetails({ type }) {
     const inProgressRecipes = localStorage.getItem('inProgressRecipes');
     if (inProgressRecipes) {
       const inProgress = JSON.parse(inProgressRecipes);
-      const check = Object.keys(inProgress[storageType])
+      const check = Object.keys(inProgress[recipeType])
         .some((element) => element === id);
       if (check) {
         setNameBtn('Continue Recipe');
@@ -53,6 +53,13 @@ function RecipeDetails({ type }) {
     const index = url.indexOf('=');
     const newUrl = url.slice(index + 1);
     return `https://www.youtube.com/embed/${newUrl}`;
+  };
+  console.log(recipeType);
+
+  const handleClick = () => {
+    const url = `/${recipeType}/${id}/in-progress`;
+    console.log(url);
+    history.push(url);
   };
 
   useEffect(() => {
@@ -107,18 +114,19 @@ function RecipeDetails({ type }) {
               />
             )
           }
+          <section>
+            <CardRecomend type={ recipeType } />
+          </section>
           { showBtn && (
             <button
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
+              onClick={ handleClick }
             >
-              {nameBtn}
+              { nameBtn }
             </button>
           ) }
-          <section>
-            <CardRecomend type={ recipeType } />
-          </section>
         </div>
       )}
     </div>
