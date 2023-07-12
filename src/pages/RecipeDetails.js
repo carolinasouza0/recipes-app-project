@@ -7,6 +7,7 @@ import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
+  const [showBtn, setShowBtn] = useState(true);
   const { id } = useParams();
 
   const recipeType = type === 'meals' ? 'meals' : 'drinks';
@@ -15,6 +16,14 @@ function RecipeDetails({ type }) {
   const getRecipe = async () => {
     const newRecipe = await getDetailsRecipe(recipeType, id);
     setRecipe(newRecipe);
+  };
+
+  const btnCondition = () => {
+    const doneRecipes = localStorage.getItem('doneRecipes');
+    if (doneRecipes) {
+      const condition = doneRecipes.json().some((element) => element.id === id);
+      setShowBtn(!condition);
+    }
   };
 
   const ingredients = recipe.length !== 0 ? Object.keys(recipe[0])
@@ -34,6 +43,7 @@ function RecipeDetails({ type }) {
 
   useEffect(() => {
     getRecipe();
+    btnCondition();
     console.log(recipe);
   }, []);
 
@@ -82,13 +92,15 @@ function RecipeDetails({ type }) {
               />
             )
           }
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="start-recipe-btn"
-          >
-            Start Recipe
-          </button>
+          { showBtn && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+            >
+              Start Recipe
+            </button>
+          ) }
           <section>
             <CardRecomend type={ recipeType } />
           </section>
