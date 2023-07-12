@@ -5,8 +5,11 @@ import UserContext from './UserContext';
 function UserProvider({ children }) {
   const [objInicial, setObjInicial] = useState({
     dataMeals: [],
+    dataCategoryMeals: [],
     dataDrinks: [],
+    dataCategoryDrinks: [],
   });
+
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

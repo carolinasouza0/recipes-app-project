@@ -5,6 +5,7 @@ function Card({ item, index, route }) {
 
   return (
     <div
+    // data-testid="0-recipe-card
       data-testid={ `${index}-recipe-card` }
       key={ index }
     >

@@ -20,8 +20,6 @@ function Login() {
   async function saveReaload(e) {
     e.preventDefault();
     window.localStorage.setItem('user', JSON.stringify({ email }));
-    // const iniObjApiii = await fetchApiInicial();
-    // setObjInicial(iniObjApiii);
 
     history.push('/meals');
   }
