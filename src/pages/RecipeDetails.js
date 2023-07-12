@@ -114,6 +114,21 @@ function RecipeDetails({ type }) {
               />
             )
           }
+          <div>
+            <button
+              type="button"
+              data-testid="share-btn"
+            >
+              Share
+
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+            >
+              Favorite
+            </button>
+          </div>
           <section>
             <CardRecomend type={ recipeType } />
           </section>
