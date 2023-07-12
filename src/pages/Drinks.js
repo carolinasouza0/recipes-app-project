@@ -1,9 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext,
+  useEffect,
+} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import UserContext from '../context/UserContext';
 import { fetchApiInicial } from '../utils/FetchApiInicial';
+import BtnCategory from '../components/BtnCategory';
 
 function Drinks() {
   const {
@@ -11,9 +14,10 @@ function Drinks() {
     setObjInicial,
   } = useContext(UserContext);
 
-  const arr = objInicial.dataDrinks;
+  const arrCardDrinks = objInicial.dataDrinks;
+  const arrCategoryDrinks = objInicial.dataCategoryDrinks;
 
-  console.log('array aki', arr);
+  console.log('array aki drinks', arrCategoryDrinks);
 
   useEffect(() => {
     const fetInicia = async () => {
@@ -23,13 +27,22 @@ function Drinks() {
     fetInicia();
   }, []);
 
-  const limite = 12;
+  const limiteCard = 12;
+  const limiteCategory = 5;
   return (
     <div>
       <Header title="Drinks" />
+      {
+        arrCategoryDrinks.slice(0, limiteCategory).map((item, index) => (
+          <BtnCategory
+            key={ index }
+            categoryName={ item.strCategory }
+          />
+        ))
+      }
       <h1>Drinks</h1>
       {
-        arr.slice(0, limite).map((item, index) => (
+        arrCardDrinks.slice(0, limiteCard).map((item, index) => (
           <Card
             key={ index }
             item={ item }

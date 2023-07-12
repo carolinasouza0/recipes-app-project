@@ -1,12 +1,10 @@
-import React, { useContext,
-  useEffect,
-} from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import UserContext from '../context/UserContext';
-// import RecipesProvider from '../context/RecipesProvider';
 import { fetchApiInicial } from '../utils/FetchApiInicial';
+import BtnCategory from '../components/BtnCategory';
 
 function Meals() {
   const {
@@ -14,9 +12,10 @@ function Meals() {
     setObjInicial,
   } = useContext(UserContext);
 
-  const arr = objInicial.dataMeals;
+  const arrCardMeals = objInicial.dataMeals;
+  const arrCategoryMeals = objInicial.dataCategoryMeals;
 
-  console.log('array aki', arr);
+  console.log('array aki meals', arrCategoryMeals);
 
   useEffect(() => {
     const fetInicia = async () => {
@@ -26,13 +25,22 @@ function Meals() {
     fetInicia();
   }, []);
 
-  const limite = 12;
+  const limiteCard = 12;
+  const limiteCategory = 5;
   return (
     <div>
       <Header title="Meals" />
+      {
+        arrCategoryMeals.slice(0, limiteCategory).map((item, index) => (
+          <BtnCategory
+            key={ index }
+            categoryName={ item.strCategory }
+          />
+        ))
+      }
       <h1>Meals</h1>
       {
-        arr.slice(0, limite).map((item, index) => (
+        arrCardMeals.slice(0, limiteCard).map((item, index) => (
           <Card
             key={ index }
             item={ item }
