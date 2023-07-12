@@ -7,11 +7,13 @@ import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
+  const [nameBtn, setNameBtn] = useState('Start Recipe');
   const [showBtn, setShowBtn] = useState(true);
   const { id } = useParams();
 
   const recipeType = type === 'meals' ? 'meals' : 'drinks';
   const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
+  const storageType = type === 'meals' ? 'meals' : 'drinks';
 
   const getRecipe = async () => {
     const newRecipe = await getDetailsRecipe(recipeType, id);
@@ -23,6 +25,18 @@ function RecipeDetails({ type }) {
     if (doneRecipes) {
       const condition = doneRecipes.json().some((element) => element.id === id);
       setShowBtn(!condition);
+    }
+  };
+
+  const btnNameCondition = () => {
+    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+    if (inProgressRecipes) {
+      const inProgress = JSON.parse(inProgressRecipes);
+      const check = Object.keys(inProgress[storageType])
+        .some((element) => element === id);
+      if (check) {
+        setNameBtn('Continue Recipe');
+      }
     }
   };
 
@@ -44,6 +58,7 @@ function RecipeDetails({ type }) {
   useEffect(() => {
     getRecipe();
     btnCondition();
+    btnNameCondition();
     console.log(recipe);
   }, []);
 
@@ -98,7 +113,7 @@ function RecipeDetails({ type }) {
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
             >
-              Start Recipe
+              {nameBtn}
             </button>
           ) }
           <section>
