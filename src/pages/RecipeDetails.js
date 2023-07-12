@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import CardRecomend from '../components/CardRecomend';
+import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
@@ -81,6 +82,13 @@ function RecipeDetails({ type }) {
               />
             )
           }
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
           <section>
             <CardRecomend type={ recipeType } />
           </section>
