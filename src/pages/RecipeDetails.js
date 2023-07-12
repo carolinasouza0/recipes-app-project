@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
+import CardRecomend from '../components/CardRecomend';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
@@ -80,6 +81,9 @@ function RecipeDetails({ type }) {
               />
             )
           }
+          <section>
+            <CardRecomend type={ recipeType } />
+          </section>
         </div>
       )}
     </div>

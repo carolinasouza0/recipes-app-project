@@ -1,0 +1,16 @@
+.recomendation-img {
+  height: 200px;
+  object-fit: cover;
+  width: 200px;
+}
+
+.carousel {
+  display: flex;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-inner {
+  min-width: 100%;
+  scroll-snap-align: start;
+}
