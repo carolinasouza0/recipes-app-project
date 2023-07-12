@@ -1,16 +1,20 @@
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import CardRecomend from '../components/CardRecomend';
 import '../styles/RecipeDetails.css';
+import shareImage from '../images/shareIcon.svg';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
   const [nameBtn, setNameBtn] = useState('Start Recipe');
   const [showBtn, setShowBtn] = useState(true);
+  const [copyLink, setCopyLink] = useState(false);
   const { id } = useParams();
   const history = useHistory();
+  const copy = clipboardCopy;
 
   const recipeType = type === 'meals' ? 'meals' : 'drinks';
   const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
@@ -60,6 +64,12 @@ function RecipeDetails({ type }) {
     const url = `/${recipeType}/${id}/in-progress`;
     console.log(url);
     history.push(url);
+  };
+
+  const handleShareClick = () => {
+    const url = `/${recipeType}/${id}`;
+    copy(`http://localhost:3000${url}`);
+    setCopyLink(true);
   };
 
   useEffect(() => {
@@ -115,11 +125,16 @@ function RecipeDetails({ type }) {
             )
           }
           <div>
+            { copyLink && <p>Link copied!</p> }
             <button
               type="button"
               data-testid="share-btn"
+              onClick={ handleShareClick }
             >
-              Share
+              <img
+                src={ shareImage }
+                alt="share"
+              />
 
             </button>
             <button
