@@ -6,6 +6,7 @@ import { getDetailsRecipe } from '../utils/FetchAPI';
 import CardRecomend from '../components/CardRecomend';
 import '../styles/RecipeDetails.css';
 import shareImage from '../images/shareIcon.svg';
+import FavoriteBtn from '../components/FavoriteBtn';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
@@ -137,12 +138,11 @@ function RecipeDetails({ type }) {
               />
 
             </button>
-            <button
-              type="button"
-              data-testid="favorite-btn"
-            >
-              Favorite
-            </button>
+            <FavoriteBtn
+              id={ id }
+              type={ type }
+              recipe={ recipe }
+            />
           </div>
           <section>
             <CardRecomend type={ recipeType } />
