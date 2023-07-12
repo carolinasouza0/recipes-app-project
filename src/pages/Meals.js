@@ -5,6 +5,8 @@ import Card from '../components/Card';
 import UserContext from '../context/UserContext';
 import { fetchApiInicial } from '../utils/FetchApiInicial';
 import BtnCategory from '../components/BtnCategory';
+import BtnAll from '../components/BtnAll';
+import RecipesContext from '../context/RecipesContext';
 
 function Meals() {
   const {
@@ -12,7 +14,12 @@ function Meals() {
     setObjInicial,
   } = useContext(UserContext);
 
-  const arrCardMeals = objInicial.dataMeals;
+  const {
+    isFilter,
+    filteredCategory,
+  } = useContext(RecipesContext);
+
+  const arrCardMeals = isFilter ? filteredCategory.meals : objInicial.dataMeals;
   const arrCategoryMeals = objInicial.dataCategoryMeals;
 
   console.log('array aki meals', arrCategoryMeals);
@@ -35,9 +42,11 @@ function Meals() {
           <BtnCategory
             key={ index }
             categoryName={ item.strCategory }
+            route="meals"
           />
         ))
       }
+      <BtnAll />
       <h1>Meals</h1>
       {
         arrCardMeals.slice(0, limiteCard).map((item, index) => (
