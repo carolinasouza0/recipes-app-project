@@ -1,5 +1,7 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 import RecipesProvider from '../context/RecipesProvider';
@@ -29,6 +31,11 @@ describe('Testando a página de detalhes de receita', () => {
     expect(recipeVideo).toBeInTheDocument();
     expect(recipeRecomendation).toBeInTheDocument();
     expect(startRecipeBtn).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(startRecipeBtn);
+    });
+    expect(history.location.pathname).toBe('/meals/52977/in-progress');
   });
 
   test('Testa se as informações da receita de bebida são renderizadas na tela', async () => {
@@ -52,5 +59,48 @@ describe('Testando a página de detalhes de receita', () => {
     expect(recipeInstructions).toBeInTheDocument();
     expect(recipeRecomendation).toBeInTheDocument();
     expect(startRecipeBtn).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(startRecipeBtn);
+    });
+    expect(history.location.pathname).toBe('/drinks/15266/in-progress');
+  });
+
+  // testes com problema de timeout - não consegui resolver
+  test('Testa se o botão de favoritar funciona', async () => {
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push('/meals/52977');
+    });
+    const favoriteBtn = await screen.findByTestId('favorite-btn');
+    expect(favoriteBtn).toBeInTheDocument();
+
+    await waitFor(() => {
+      userEvent.click(favoriteBtn);
+      expect(favoriteBtn).toHaveAttribute('src', 'blackHeartIcon.svg');
+    });
+
+    act(() => {
+      history.push('/meals');
+    });
+
+    await waitFor(() => {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: '52977' }]));
+      expect(localStorage.getItem('favoriteRecipes')).not.toBeNull();
+    });
+  });
+
+  test('Testa se o botão de compartilhar está na tela', async () => {
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push('/meals/52977');
+    });
+    const shareBtn = await screen.findByTestId('share-btn');
+    expect(shareBtn).toBeInTheDocument();
+
+    await waitFor(() => {
+      userEvent.click(shareBtn);
+      expect(shareBtn).toHaveAttribute('src', 'shareIcon.svg');
+    });
   });
 });
