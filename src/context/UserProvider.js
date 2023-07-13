@@ -10,7 +10,6 @@ function UserProvider({ children }) {
     dataCategoryDrinks: [],
   });
 
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,9 +20,7 @@ function UserProvider({ children }) {
     setEmail,
     password,
     setPassword,
-    loading,
-    setLoading,
-  }), [email, loading, objInicial, password]);
+  }), [email, objInicial, password]);
   return (
     <UserContext.Provider value={ store }>
       {children}
