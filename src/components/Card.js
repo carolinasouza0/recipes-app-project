@@ -6,7 +6,7 @@ function Card({ item, index, route }) {
 
   const idRoute = `id${mealOrDrink}`;
 
-  console.log(`${index}-recipe-card`);
+  // console.log(`${index}-recipe-card`);
   return (
     <Link
       // href={ `/${route}/${item[idRoute]}` }
