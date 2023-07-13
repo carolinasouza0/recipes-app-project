@@ -22,16 +22,21 @@ function App() {
           render={ () => <RecipeDetails type="meals" /> }
         />
         <Route
+          exact
           path="/drinks/:id"
           render={ () => <RecipeDetails type="drinks" /> }
         />
+        <Route exact path="/drinks" render={ () => <Recipes type="drinks" /> } />
         <Route
           exact
-          path="/meals/:id-da-receita/in-progress"
-          component={ RecipeInProgress }
+          path="/meals/:id/in-progress"
+          render={ () => <RecipeInProgress type="meals" /> }
         />
-        <Route exact path="/drinks" render={ () => <Recipes type="drinks" /> } />
-        <Route path="/drinks/:id-da-receita/in-progress" component={ RecipeInProgress } />
+        <Route
+          exact
+          path="/drinks/:id/in-progress"
+          render={ () => <RecipeInProgress type="drinks" /> }
+        />
         <Route path="/done-recipes" component={ DoneRecipes } />
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route path="/profile" component={ Profile } />

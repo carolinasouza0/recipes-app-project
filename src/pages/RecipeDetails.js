@@ -1,11 +1,21 @@
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
+import CardRecomend from '../components/CardRecomend';
+import '../styles/RecipeDetails.css';
+import FavoriteBtn from '../components/FavoriteBtn';
+import shareImage from '../images/shareIcon.svg';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
+  const [nameBtn, setNameBtn] = useState('Start Recipe');
+  const [showBtn, setShowBtn] = useState(true);
+  const [copyLink, setCopyLink] = useState(false);
   const { id } = useParams();
+  const history = useHistory();
+  const copy = clipboardCopy;
 
   const recipeType = type === 'meals' ? 'meals' : 'drinks';
   const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
@@ -13,6 +23,26 @@ function RecipeDetails({ type }) {
   const getRecipe = async () => {
     const newRecipe = await getDetailsRecipe(recipeType, id);
     setRecipe(newRecipe);
+  };
+
+  const btnCondition = () => {
+    const doneRecipes = localStorage.getItem('doneRecipes');
+    if (doneRecipes) {
+      const condition = doneRecipes.json().some((element) => element.id === id);
+      setShowBtn(!condition);
+    }
+  };
+
+  const btnNameCondition = () => {
+    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+    if (inProgressRecipes) {
+      const inProgress = JSON.parse(inProgressRecipes);
+      const check = Object.keys(inProgress[recipeType])
+        .some((element) => element === id);
+      if (check) {
+        setNameBtn('Continue Recipe');
+      }
+    }
   };
 
   const ingredients = recipe.length !== 0 ? Object.keys(recipe[0])
@@ -29,9 +59,24 @@ function RecipeDetails({ type }) {
     const newUrl = url.slice(index + 1);
     return `https://www.youtube.com/embed/${newUrl}`;
   };
+  console.log(recipeType);
+
+  const handleClick = () => {
+    const url = `/${recipeType}/${id}/in-progress`;
+    console.log(url);
+    history.push(url);
+  };
+
+  const handleShareClick = () => {
+    const url = `/${recipeType}/${id}`;
+    copy(`http://localhost:3000${url}`);
+    setCopyLink(true);
+  };
 
   useEffect(() => {
     getRecipe();
+    btnCondition();
+    btnNameCondition();
     console.log(recipe);
   }, []);
 
@@ -80,6 +125,38 @@ function RecipeDetails({ type }) {
               />
             )
           }
+          <div>
+            { copyLink && <p>Link copied!</p> }
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ handleShareClick }
+            >
+              <img
+                src={ shareImage }
+                alt="share"
+              />
+
+            </button>
+            <FavoriteBtn
+              id={ id }
+              type={ type }
+              recipe={ recipe }
+            />
+          </div>
+          <section>
+            <CardRecomend type={ recipeType } />
+          </section>
+          { showBtn && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              onClick={ handleClick }
+            >
+              { nameBtn }
+            </button>
+          ) }
         </div>
       )}
     </div>
