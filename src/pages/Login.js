@@ -22,6 +22,7 @@ function Login() {
     window.localStorage.setItem('user', JSON.stringify({ email }));
 
     history.push('/meals');
+    // console.log(email);
   }
 
   return (
@@ -35,6 +36,7 @@ function Login() {
               <input
                 type="email"
                 data-testid="email-input"
+                name="email"
                 value={ email }
                 onChange={ (e) => setEmail(e.target.value) }
               />

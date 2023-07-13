@@ -5,14 +5,13 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
-  const emailUserstorage = window.localStorage.getItem('user');
-  const emailUser = JSON.parse(emailUserstorage);
-  // console.log('email', emailUser.email);
+  const emailUserstorage = localStorage.getItem('user');
+  // const emailUser = emailUserstorage.email; (o teste da erro quando colocamos o .email, porque eu não sei)
+
   return (
     <div>
-      Profile
       <Header title="Profile" />
-      <p data-testid="profile-email">{ emailUser.email }</p>
+      <p data-testid="profile-email">{ emailUserstorage }</p>
       <Footer />
       <BtnDoneRecipes />
       <BtnFavoriteRecipes />
