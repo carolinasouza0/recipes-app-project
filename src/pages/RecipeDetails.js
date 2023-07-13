@@ -28,7 +28,8 @@ function RecipeDetails({ type }) {
   const btnCondition = () => {
     const doneRecipes = localStorage.getItem('doneRecipes');
     if (doneRecipes) {
-      const condition = doneRecipes.json().some((element) => element.id === id);
+      const doneRecipesArray = JSON.parse(doneRecipes);
+      const condition = doneRecipesArray.some((element) => element.id === id);
       setShowBtn(!condition);
     }
   };
@@ -59,11 +60,11 @@ function RecipeDetails({ type }) {
     const newUrl = url.slice(index + 1);
     return `https://www.youtube.com/embed/${newUrl}`;
   };
-  console.log(recipeType);
+  // console.log(recipeType);
 
   const handleClick = () => {
     const url = `/${recipeType}/${id}/in-progress`;
-    console.log(url);
+    // console.log(url);
     history.push(url);
   };
 
@@ -77,7 +78,7 @@ function RecipeDetails({ type }) {
     getRecipe();
     btnCondition();
     btnNameCondition();
-    console.log(recipe);
+    // console.log(recipe);
   }, []);
 
   return (

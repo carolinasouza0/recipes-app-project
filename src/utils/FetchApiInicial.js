@@ -21,7 +21,7 @@ export const fetchApiInicial = async () => {
 
   // console.count('fiz o fetch inicial');
 
-  console.log(dataCategoryMeals.meals);
+  // console.log(dataCategoryMeals.meals);
 
   const iniObjApi = {
     dataMeals: dataMeals.meals,

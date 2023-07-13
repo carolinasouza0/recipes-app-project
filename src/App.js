@@ -30,13 +30,13 @@ function App() {
         <Route exact path="/drinks" render={ () => <Recipes type="drinks" /> } />
         <Route
           exact
-          path="/meals/:id/in-progress"
-          render={ () => <RecipeInProgress type="meals" /> }
+          path="/drinks/:id/in-progress"
+          render={ () => <RecipeInProgress type="drinks" /> }
         />
         <Route
           exact
-          path="/drinks/:id/in-progress"
-          render={ () => <RecipeInProgress type="drinks" /> }
+          path="/meals/:id/in-progress"
+          render={ () => <RecipeInProgress type="meals" /> }
         />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
