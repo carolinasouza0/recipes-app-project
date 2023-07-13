@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import CardRecomend from '../components/CardRecomend';
 import '../styles/RecipeDetails.css';
-import shareImage from '../images/shareIcon.svg';
 import FavoriteBtn from '../components/FavoriteBtn';
+import shareImage from '../images/shareIcon.svg';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
