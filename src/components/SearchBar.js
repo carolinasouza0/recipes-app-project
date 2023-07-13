@@ -3,7 +3,8 @@ import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { decideFatch } from '../utils/FetchAPI';
 import RecipesContext from '../context/RecipesContext';
-import Card from './Card';
+// import Card from './Card';
+import UserContext from '../context/UserContext';
 // import RecipeDetails from '../pages/RecipeDetails';
 
 function SearchBar({ showSearchBar }) {
@@ -16,8 +17,13 @@ function SearchBar({ showSearchBar }) {
     setRecipes,
     setRoutes,
     routes,
-    recipes,
+    // recipes,
   } = useContext(RecipesContext);
+
+  const {
+    objInicial,
+    setObjInicial,
+  } = useContext(UserContext);
 
   const history = useHistory();
 
@@ -30,7 +36,15 @@ function SearchBar({ showSearchBar }) {
     }
   }, []);
 
-  console.log(routes);
+  // console.log(routes);
+  // fiz essa função para o 14, estava renderizando duas vezes
+  function setObjI(newRecipes) {
+    if (routes === 'meals') {
+      setObjInicial({ ...objInicial, dataMeals: newRecipes });
+    } else {
+      setObjInicial({ ...objInicial, dataDrinks: newRecipes });
+    }
+  }
 
   const getSearchAPI = async () => {
     if (searchType === 'first-letter' && searchInput.length !== 1) {
@@ -45,6 +59,7 @@ function SearchBar({ showSearchBar }) {
     ) {
       const newRecipes = await decideFatch(searchInput, searchType, routes);
       setRecipes(newRecipes);
+      setObjI(newRecipes);
 
       if (newRecipes === null || newRecipes.length === 0) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -58,8 +73,8 @@ function SearchBar({ showSearchBar }) {
     }
   };
 
-  console.log(recipes);
-  const limite = 12;
+  // console.log(recipes);
+  // const limite = 12;
 
   return (
     <div>
@@ -117,18 +132,6 @@ function SearchBar({ showSearchBar }) {
           <button onClick={ getSearchAPI } data-testid="exec-search-btn">
             Search
           </button>
-          {
-            (recipes !== null) && (
-              recipes.slice(0, limite).map((item, index) => (
-                <Card
-                  key={ index }
-                  item={ item }
-                  index={ index }
-                  route={ routes }
-                />
-              ))
-            )
-          }
         </div>
       )}
     </div>
