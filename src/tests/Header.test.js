@@ -1,15 +1,18 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 
 describe('Testa o componente Header', () => {
   test('Testa a renderização do componente', async () => {
     const { history } = renderWithRouter(<App />);
-    history.push('/meals');
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/meals');
+    act(() => {
+      history.push('/meals');
+      const { location: { pathname } } = history;
+      expect(pathname).toBe('/meals');
+    });
 
     const pageTitle = await screen.findByTestId('page-title');
     expect(pageTitle).toBeInTheDocument();
@@ -21,9 +24,11 @@ describe('Testa o componente Header', () => {
 
   test('Testa se quando clica no botão de profile, a rota muda para /profile', async () => {
     const { history } = renderWithRouter(<App />);
-    history.push('/meals');
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/meals');
+    act(() => {
+      history.push('/meals');
+      const { location: { pathname } } = history;
+      expect(pathname).toBe('/meals');
+    });
 
     const profileButton = await screen.findByTestId('profile-top-btn');
     expect(profileButton).toBeInTheDocument();
@@ -34,9 +39,11 @@ describe('Testa o componente Header', () => {
 
   test('Testa se quando clica no botão de search, a barra de busca aparece', async () => {
     const { history } = renderWithRouter(<App />);
-    history.push('/meals');
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/meals');
+    act(() => {
+      history.push('/meals');
+      const { location: { pathname } } = history;
+      expect(pathname).toBe('/meals');
+    });
 
     const searchButton = await screen.findByTestId('search-top-btn');
     expect(searchButton).toBeInTheDocument();
