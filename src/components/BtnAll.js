@@ -5,7 +5,6 @@ function BtnAll() {
   const {
     // isFilter,
     setIsFilter,
-    // filteredCategory,
     setFilteredCategory,
   } = useContext(RecipesContext);
 
