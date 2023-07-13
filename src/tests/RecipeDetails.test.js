@@ -1,108 +1,153 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 import RecipesProvider from '../context/RecipesProvider';
+import oneMeal from '../../cypress/mocks/oneMeal';
 
-const ROUTE_MEALS_ID = '/meals/52977';
+const ROUTE_MEALS_ID = '/meals/52771';
+const WHITE_HEART = 'whiteHeartIcon.svg';
 
 describe('Testando a página de detalhes de receita', () => {
-  delete global.window.location;
-  global.window = Object.create(window);
-  global.window.location = { reload: jest.fn(), pathname: '/meals' };
+  beforeEach(() => {
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue(oneMeal),
+    });
+  });
+  afterEach(() => jest.clearAllMocks());
 
   test('Testa se as informações da receita de comida são renderizadas na tela', async () => {
+    const ingredients = [
+      'penne rigate',
+      'olive oil',
+      'garlic',
+      'chopped tomatoes',
+      'red chile flakes',
+      'italian seasoning',
+      'basil',
+      'Parmigiano-Reggiano',
+    ];
+
+    const measures = [
+      '1 pound',
+      '1/4 cup',
+      '3 cloves',
+      '1 tin ',
+      '1/2 teaspoon',
+      '1/2 teaspoon',
+      '6 leaves',
+      'spinkling',
+    ];
+
     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
     history.push(ROUTE_MEALS_ID);
-    const recipePhoto = await screen.findByTestId('recipe-photo');
-    const recipeTitle = await screen.findByTestId('recipe-title');
-    const recipeCategory = await screen.findByTestId('recipe-category');
-    const recipeIngredients = await screen.findByTestId('0-ingredient-name-and-measure');
-    const recipeInstructions = await screen.findByTestId('instructions');
-    const recipeVideo = await screen.findByTestId('video');
-    const recipeRecomendation = await screen.findByTestId('0-recomendation-card');
-    const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
 
-    expect(recipePhoto).toBeInTheDocument();
-    expect(recipeTitle).toBeInTheDocument();
-    expect(recipeCategory).toBeInTheDocument();
-    expect(recipeIngredients).toBeInTheDocument();
-    expect(recipeInstructions).toBeInTheDocument();
-    expect(recipeVideo).toBeInTheDocument();
-    expect(recipeRecomendation).toBeInTheDocument();
-    expect(startRecipeBtn).toBeInTheDocument();
+    const imageMeal = await screen.findByTestId('recipe-photo');
+    expect(imageMeal).toBeInTheDocument();
+    expect(imageMeal.src).toBe(oneMeal.meals[0].strMealThumb);
 
-    // act(() => {
-    //   userEvent.click(startRecipeBtn);
-    // });
-    // expect(history.location.pathname).toBe('/meals/52977/in-progress');
+    const titleMeal = await screen.findByTestId('recipe-title');
+    expect(titleMeal).toBeInTheDocument();
+    expect(titleMeal.innerHTML).toBe(oneMeal.meals[0].strMeal);
+
+    const shareButton = await screen.findByTestId('share-btn');
+    expect(shareButton).toBeInTheDocument();
+
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    expect(favoriteButton).toBeInTheDocument();
+
+    const category = await screen.findByTestId('recipe-category');
+    expect(category).toBeInTheDocument();
+    expect(category.innerHTML).toBe(oneMeal.meals[0].strCategory);
+
+    const instructions = await screen.findByTestId('instructions');
+    expect(instructions).toBeInTheDocument();
+    expect(instructions.innerHTML).toBe(oneMeal.meals[0].strInstructions);
+
+    const ingredientsList = await screen.findByTestId('0-ingredient-name-and-measure');
+    expect(ingredientsList).toBeInTheDocument();
+
+    ingredients.forEach((ingredient, index) => {
+      const ingredientName = screen.getByTestId(`${index}-ingredient-name-and-measure`);
+      expect(ingredientName.innerHTML).toBe(`${ingredient} - ${measures[index]}`);
+    });
+
+    const video = await screen.findByTestId('video');
+    expect(video).toBeInTheDocument();
+    expect(video.src).toBe('https://www.youtube.com/embed/1IszT_guI08');
+
+    // const recomendation = await screen.findByTestId('0-recomendation-card');
+    // expect(recomendation).toBeInTheDocument();
+
+    const startRecipeButton = await screen.findByTestId('start-recipe-btn');
+    expect(startRecipeButton).toBeInTheDocument();
   });
 
-  test('Testa se as informações da receita de bebida são renderizadas na tela', async () => {
+  test('Testa se os botões de compartilhar e favoritar funcionam', async () => {
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
+
     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
-    history.push('/drinks/15266');
+    history.push(ROUTE_MEALS_ID);
 
-    const recipePhoto = await screen.findByTestId('recipe-photo');
-    const recipeTitle = await screen.findByTestId('recipe-title');
-    const recipeCategory1 = await screen.findByText('Ordinary Drink');
-    const recipeCategory2 = await screen.findByText('Alcoholic');
-    const recipeIngredients = await screen.findByTestId('0-ingredient-name-and-measure');
-    const recipeInstructions = await screen.findByTestId('instructions');
-    const recipeRecomendation = await screen.findByTestId('0-recomendation-card');// rever
-    const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
+    const shareButton = await screen.findByTestId('share-btn');
+    expect(shareButton).toBeInTheDocument();
+    act(() => {
+      userEvent.click(shareButton);
+    });
 
-    expect(recipePhoto).toBeInTheDocument();
-    expect(recipeTitle).toBeInTheDocument();
-    expect(recipeCategory1).toBeInTheDocument();
-    expect(recipeCategory2).toBeInTheDocument();
-    expect(recipeIngredients).toBeInTheDocument();
-    expect(recipeInstructions).toBeInTheDocument();
-    expect(recipeRecomendation).toBeInTheDocument();
-    expect(startRecipeBtn).toBeInTheDocument();
+    const alert = await screen.findByText('Link copied!');
+    expect(alert).toBeInTheDocument();
 
-    // act(() => {
-    //   userEvent.click(startRecipeBtn);
-    // });
-    // expect(history.location.pathname).toBe('/drinks/15266/in-progress');
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    expect(favoriteButton).toBeInTheDocument();
+    expect(favoriteButton.getAttribute('src')).toBe(WHITE_HEART);
+    act(() => {
+      userEvent.click(favoriteButton);
+    });
+
+    expect(favoriteButton.getAttribute('src')).not.toBe(WHITE_HEART);
+
+    act(() => {
+      userEvent.click(favoriteButton);
+    });
+
+    expect(favoriteButton.getAttribute('src')).toBe(WHITE_HEART);
   });
 
-  // testes com problema de timeout - não consegui resolver
-  test('Testa se o botão de favoritar funciona', async () => {
+  test('Testa se o botão de iniciar receita redireciona para a tela de receita em processo', async () => {
     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
-    act(() => {
-      history.push(ROUTE_MEALS_ID);
-    });
-    const favoriteBtn = await screen.findByTestId('favorite-btn');
-    expect(favoriteBtn).toBeInTheDocument();
+    history.push(ROUTE_MEALS_ID);
 
-    // await waitFor(() => {
-    //   userEvent.click(favoriteBtn);
-    //   expect(favoriteBtn).toHaveAttribute('src', 'blackHeartIcon.svg');
-    // });
+    const startRecipeButton = await screen.findByTestId('start-recipe-btn');
+    expect(startRecipeButton).toBeInTheDocument();
 
     act(() => {
-      history.push('/meals');
+      userEvent.click(startRecipeButton);
     });
 
-    await waitFor(() => {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: '52977' }]));
-      expect(localStorage.getItem('favoriteRecipes')).not.toBeNull();
-    });
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/meals/52771/in-progress');
   });
 
-  test('Testa se o botão de compartilhar está na tela', async () => {
-    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
-    act(() => {
-      history.push(ROUTE_MEALS_ID);
-    });
-    const shareBtn = await screen.findByTestId('share-btn');
-    expect(shareBtn).toBeInTheDocument();
+  //  FALTAM OS TESTES DA FUNÇÃO btnCondition e btnNameCondition, estes só podem ser feitos quando
+  //  o estado do botão mudar, após termos as páginas InProgress e DoneRecipes funcionando.
 
-    // await waitFor(() => {
-    //   userEvent.click(shareBtn);
-    //   expect(shareBtn).toHaveAttribute('src', 'shareIcon.svg');
-    // });
-  });
+  //   test('Testa se o nome do botão muda de Start Recipe para Cotinue Recipe', async () => {
+  //     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+  //     history.push(ROUTE_MEALS_ID);
+
+  //     const startRecipeButton = await screen.findByTestId('start-recipe-btn');
+  //     expect(startRecipeButton).toBeInTheDocument();
+
+  //     act(() => {
+  //       userEvent.click(startRecipeButton);
+  //     });
+
+  //     const { location: { pathname } } = history;
+  //     expect(pathname).toBe('/meals/52771/in-progress');
+  // });
 });
