@@ -59,11 +59,11 @@ function RecipeDetails({ type }) {
     const newUrl = url.slice(index + 1);
     return `https://www.youtube.com/embed/${newUrl}`;
   };
-  console.log(recipeType);
+  // console.log(recipeType);
 
   const handleClick = () => {
     const url = `/${recipeType}/${id}/in-progress`;
-    console.log(url);
+    // console.log(url);
     history.push(url);
   };
 
@@ -77,7 +77,7 @@ function RecipeDetails({ type }) {
     getRecipe();
     btnCondition();
     btnNameCondition();
-    console.log(recipe);
+    // console.log(recipe);
   }, []);
 
   return (

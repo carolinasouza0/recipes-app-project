@@ -22,7 +22,7 @@ function Meals() {
   const arrCardMeals = isFilter ? filteredCategory.meals : objInicial.dataMeals;
   const arrCategoryMeals = objInicial.dataCategoryMeals;
 
-  console.log('array aki meals', arrCategoryMeals);
+  // console.log('array aki meals', arrCategoryMeals);
 
   useEffect(() => {
     const fetInicia = async () => {

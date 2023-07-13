@@ -18,6 +18,7 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/meals" render={ () => <Recipes type="meals" /> } />
         <Route
+          exact
           path="/meals/:id"
           render={ () => <RecipeDetails type="meals" /> }
         />
@@ -29,18 +30,18 @@ function App() {
         <Route exact path="/drinks" render={ () => <Recipes type="drinks" /> } />
         <Route
           exact
-          path="/meals/:id/in-progress"
-          render={ () => <RecipeInProgress type="meals" /> }
-        />
-        <Route
-          exact
           path="/drinks/:id/in-progress"
           render={ () => <RecipeInProgress type="drinks" /> }
         />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route path="/profile" component={ Profile } />
-        <Route path="/footer" component={ Footer } />
+        <Route
+          exact
+          path="/meals/:id/in-progress"
+          render={ () => <RecipeInProgress type="meals" /> }
+        />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/footer" component={ Footer } />
       </Switch>
     </div>
   );

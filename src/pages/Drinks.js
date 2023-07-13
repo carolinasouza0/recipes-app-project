@@ -26,7 +26,7 @@ function Drinks() {
 
   const arrCategoryDrinks = objInicial.dataCategoryDrinks;
 
-  console.log('array aki drinks', arrCategoryDrinks);
+  // console.log('array aki drinks', arrCategoryDrinks);
 
   useEffect(() => {
     const fetInicia = async () => {

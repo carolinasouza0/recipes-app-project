@@ -14,7 +14,7 @@ function CardRecomend({ type }) {
     setRecomendations(recommendations);
   };
 
-  console.log('recomendations', recomendations);
+  // console.log('recomendations', recomendations);
   useEffect(
     () => {
       getRecomendations();
