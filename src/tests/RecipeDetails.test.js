@@ -9,6 +9,7 @@ import oneMeal from '../../cypress/mocks/oneMeal';
 
 const ROUTE_MEALS_ID = '/meals/52771';
 const WHITE_HEART = 'whiteHeartIcon.svg';
+const START_RECIPE_ID = 'start-recipe-btn';
 
 describe('Testando a página de detalhes de receita', () => {
   beforeEach(() => {
@@ -77,11 +78,7 @@ describe('Testando a página de detalhes de receita', () => {
     const video = await screen.findByTestId('video');
     expect(video).toBeInTheDocument();
     expect(video.src).toBe('https://www.youtube.com/embed/1IszT_guI08');
-
-    // const recomendation = await screen.findByTestId('0-recomendation-card');
-    // expect(recomendation).toBeInTheDocument();
-
-    const startRecipeButton = await screen.findByTestId('start-recipe-btn');
+    const startRecipeButton = await screen.findByTestId(START_RECIPE_ID);
     expect(startRecipeButton).toBeInTheDocument();
   });
 
@@ -122,7 +119,7 @@ describe('Testando a página de detalhes de receita', () => {
     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
     history.push(ROUTE_MEALS_ID);
 
-    const startRecipeButton = await screen.findByTestId('start-recipe-btn');
+    const startRecipeButton = await screen.findByTestId(START_RECIPE_ID);
     expect(startRecipeButton).toBeInTheDocument();
 
     act(() => {
@@ -133,21 +130,34 @@ describe('Testando a página de detalhes de receita', () => {
     expect(pathname).toBe('/meals/52771/in-progress');
   });
 
-  //  FALTAM OS TESTES DA FUNÇÃO btnCondition e btnNameCondition, estes só podem ser feitos quando
-  //  o estado do botão mudar, após termos as páginas InProgress e DoneRecipes funcionando.
+  test('Testa se o nome do botão muda de Start Recipe para Continue Recipe', async () => {
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push(ROUTE_MEALS_ID);
+    });
+    const startRecipeButton = await screen.findByTestId(START_RECIPE_ID);
+    expect(startRecipeButton).toBeInTheDocument();
 
-  //   test('Testa se o nome do botão muda de Start Recipe para Cotinue Recipe', async () => {
-  //     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
-  //     history.push(ROUTE_MEALS_ID);
+    act(() => {
+      userEvent.click(startRecipeButton);
+    });
 
-  //     const startRecipeButton = await screen.findByTestId('start-recipe-btn');
-  //     expect(startRecipeButton).toBeInTheDocument();
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/meals/52771/in-progress');
 
-  //     act(() => {
-  //       userEvent.click(startRecipeButton);
-  //     });
+    const checkboxIngredient = await screen.findByTestId('0-ingredient-step');
+    expect(checkboxIngredient).toBeInTheDocument();
 
-  //     const { location: { pathname } } = history;
-  //     expect(pathname).toBe('/meals/52771/in-progress');
-  // });
+    act(() => {
+      userEvent.click(checkboxIngredient);
+      history.push(ROUTE_MEALS_ID);
+    });
+
+    const continueRecipeButton = await screen.findByTestId(START_RECIPE_ID);
+    expect(continueRecipeButton).toBeInTheDocument();
+    expect(continueRecipeButton.innerHTML).toBe('Continue Recipe');
+  });
+
+  //  FALTAM OS TESTES DA FUNÇÃO btnCondition, estes só podem ser feitos quando
+  //  o estado do botão mudar, após ter a página DoneRecipes funcionando.
 });
