@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import mealIcon from '../images/mealIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
-import './footer.css';
+import '../styles/footer.css';
 
 function Footer() {
   return (
