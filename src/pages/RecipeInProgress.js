@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import FavoriteBtn from '../components/FavoriteBtn';
 import shareImage from '../images/shareIcon.svg';
@@ -11,6 +12,9 @@ function RecipeInProgress({ type }) {
   const [recipe, setRecipe] = useState([]);
   const [copyLink, setCopyLink] = useState(false);
   const [completedIngredients, setCompletedIngredients] = useState([]);
+  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
+  const copy = clipboardCopy;
+  const history = useHistory();
 
   const recipeType = type === 'drinks' ? 'drinks' : 'meals';
 
@@ -33,9 +37,53 @@ function RecipeInProgress({ type }) {
     setCopyLink(true);
   };
 
+  const handleCheckboxChange = (index) => {
+    const updatedIngredients = [...completedIngredients];
+    if (completedIngredients.includes(index)) {
+      updatedIngredients.splice(updatedIngredients.indexOf(index), 1);
+    } else {
+      updatedIngredients.push(index);
+    }
+    setCompletedIngredients(updatedIngredients);
+
+    const allChecked = listIngredients
+      .every((ingredient, i) => updatedIngredients.includes(i));
+    setAllIngredientsChecked(allChecked);
+  };
+
+  const handleFinishRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const completedRecipe = { ...recipe[0] };
+    doneRecipes.push(completedRecipe);
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    localStorage.removeItem('inProgressRecipes');
+
+    history.push('/done-recipes');
+  };
+
   useEffect(() => {
     getRecipe();
   }, []);
+
+  useEffect(() => {
+    const savedProgress = localStorage.getItem('inProgressRecipes');
+    if (savedProgress) {
+      const progressData = JSON.parse(savedProgress);
+      const savedIngredients = progressData[recipeType][id];
+      if (savedIngredients) {
+        setCompletedIngredients(savedIngredients);
+      }
+    }
+  }, [recipeType, id]);
+
+  useEffect(() => {
+    const progressData = {
+      [recipeType]: {
+        [id]: completedIngredients,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressData));
+  }, [recipeType, id, completedIngredients]);
 
   return (
     <div>
@@ -53,20 +101,12 @@ function RecipeInProgress({ type }) {
         {listIngredients.map((ingredient, index) => (
           <li key={ index }>
             <label
-              data-testid={ `data-testid=${index}-ingredient-stepd` }
+              data-testid={ `${index}-ingredient-step` }
               className={ completedIngredients.includes(index) ? 'strikethrough' : '' }
             >
               <input
                 type="checkbox"
-                onChange={ () => {
-                  const updatedIngredients = [...completedIngredients];
-                  if (completedIngredients.includes(index)) {
-                    updatedIngredients.splice(updatedIngredients.indexOf(index), 1);
-                  } else {
-                    updatedIngredients.push(index);
-                  }
-                  setCompletedIngredients(updatedIngredients);
-                } }
+                onChange={ () => handleCheckboxChange(index) }
                 checked={ completedIngredients.includes(index) }
               />
               {`${recipe[0][ingredient]} - ${recipe[0][`strMeasure${index + 1}`]}`}
@@ -99,7 +139,14 @@ function RecipeInProgress({ type }) {
       <h3 data-testid="recipe-category">
         Categoria:
       </h3>
-      <button data-testid="finish-recipe-btn">finish-recipe</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ !allIngredientsChecked }
+        onClick={ handleFinishRecipe }
+      >
+        Finish Recipe
+      </button>
     </div>
   );
 }

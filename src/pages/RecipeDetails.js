@@ -28,7 +28,8 @@ function RecipeDetails({ type }) {
   const btnCondition = () => {
     const doneRecipes = localStorage.getItem('doneRecipes');
     if (doneRecipes) {
-      const condition = doneRecipes.json().some((element) => element.id === id);
+      const doneRecipesArray = JSON.parse(doneRecipes);
+      const condition = doneRecipesArray.some((element) => element.id === id);
       setShowBtn(!condition);
     }
   };
