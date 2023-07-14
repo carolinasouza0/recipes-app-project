@@ -17,6 +17,8 @@ function RecipeInProgress({ type }) {
   const history = useHistory();
 
   const recipeType = type === 'drinks' ? 'drinks' : 'meals';
+  const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
+  const favoriteType = type === 'meals' ? 'meal' : 'drink';
 
   const getRecipe = async () => {
     const newRecipe = await getDetailsRecipe(recipeType, id);
@@ -30,6 +32,9 @@ function RecipeInProgress({ type }) {
   const listIngredients = ingredients
     .filter((e) => recipe[0][e] !== null)
     .filter((ele) => recipe[0][ele].length !== 0);
+
+  const listDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'))
+    ? JSON.parse(localStorage.getItem('doneRecipes')) : [];
 
   const handleShareClick = () => {
     const url = `/${recipeType}/${id}`;
@@ -52,12 +57,24 @@ function RecipeInProgress({ type }) {
   };
 
   const handleFinishRecipe = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const completedRecipe = { ...recipe[0] };
-    doneRecipes.push(completedRecipe);
-    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    localStorage.removeItem('inProgressRecipes');
+    // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const completedRecipe = [...listDoneRecipes,
+      {
+        id: recipe[0][`id${typeOfRecipe}`],
+        type: favoriteType,
+        nationality: favoriteType === 'meal' ? recipe[0]?.strArea : '',
+        category: recipe[0] ? recipe[0]?.strCategory : '',
+        alcoholicOrNot: favoriteType === 'drink' ? recipe[0]?.strAlcoholic : '',
+        name: recipe[0][`str${typeOfRecipe}`],
+        image: recipe[0][`str${typeOfRecipe}Thumb`],
+        doneDate: new Date(),
+        tags: recipe[0].strTags ? recipe[0].strTags.split(',') : [],
+      }];
+    // doneRecipes.push(completedRecipe);
 
+    localStorage.setItem('doneRecipes', JSON.stringify(completedRecipe));
+    localStorage.removeItem('inProgressRecipes');
+    console.log(completedRecipe);
     history.push('/done-recipes');
   };
 
