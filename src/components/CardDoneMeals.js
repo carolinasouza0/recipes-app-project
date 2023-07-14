@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import BtnCompartilhar from './BtnCompartilha';
 
 function CardDoneMeals({ item, index }) {
