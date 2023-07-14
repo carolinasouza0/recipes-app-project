@@ -106,6 +106,7 @@ function RecipeInProgress({ type }) {
             >
               <input
                 type="checkbox"
+                data-testid={ `${index}-ingredient-checkbox` }
                 onChange={ () => handleCheckboxChange(index) }
                 checked={ completedIngredients.includes(index) }
               />
