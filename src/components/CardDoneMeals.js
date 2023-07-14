@@ -11,15 +11,19 @@ function CardDoneMeals({ item, index }) {
     return splitTag;
   };
 
+  console.log(tags(item.strTags));
+
   return (
     <div key={ index }>
       {
         ` é comida ${item.strMeal}`
       }
       <img
+      // [data-testid="1-horizontal-image"]
         data-testid={ `${index}-horizontal-image` }
+        // src={ item[`str${mealOrDrink}Thumb`] }
         src={ item.strMealThumb }
-        alt={ item.strMealThumb }
+        alt={ item.strMeal }
       />
       <p
         data-testid={ `${index}-horizontal-top-text` }
@@ -34,19 +38,26 @@ function CardDoneMeals({ item, index }) {
       <p
         data-testid={ `${index}-horizontal-done-date` }
       >
-        {/* aqui é a data que foi feita */}
         { item.dateModified }
       </p>
       <BtnCompartilhar index={ index } type="meals" idReference={ item.idMeal } />
       {
-        tags(item.strTags).slice(0, limiteTag).map((tag, indexTag) => (
+        (tags(item.strTags)).length < 1 ? (
           <p
-            key={ indexTag }
-            data-testid={ `${index}-${tag}-horizontal-tag` }
+            data-testid={ `${index}-${item.strTags}-horizontal-tag` }
           >
-            { tag }
-          </p>
-        ))
+            {item.strTags}
+          </p>) : (
+          tags(item.strTags).slice(0, limiteTag).map((tag, indexTag) => (
+            <p
+              key={ indexTag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </p>
+          ))
+
+        )
       }
     </div>
   );

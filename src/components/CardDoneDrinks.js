@@ -10,7 +10,7 @@ function CardDoneDrinks({ item, index }) {
     const splitTag = strTags.split(/,/);
     return splitTag;
   };
-  console.log(tags(item.strTags));
+  // console.log(tags(item.strTags));
   return (
     <div key={ index }>
       {
@@ -39,14 +39,22 @@ function CardDoneDrinks({ item, index }) {
       </p>
       <BtnCompartilhar index={ index } type="drinks" idReference={ item.idDrink } />
       {
-        tags(item.strTags).slice(0, limiteTag).map((tag, indexTag) => (
+        (tags(item.strTags)).length < 1 ? (
           <p
-            key={ indexTag }
-            data-testid={ `${index}-${tag}-horizontal-tag` }
+            data-testid={ `${index}-${item.strTags}-horizontal-tag` }
           >
-            { tag }
-          </p>
-        ))
+            {item.strTags}
+          </p>) : (
+          tags(item.strTags).slice(0, limiteTag).map((tag, indexTag) => (
+            <p
+              key={ indexTag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </p>
+          ))
+
+        )
       }
     </div>
   );
