@@ -4,7 +4,7 @@ import BtnCompartilhar from './BtnCompartilha';
 function CardDoneMeals({ item, index }) {
   const limiteTag = 2;
   const tags = (strTags) => {
-    if (strTags === null) {
+    if (!strTags) {
       return [];
     }
     const splitTag = strTags.split(/,/);
