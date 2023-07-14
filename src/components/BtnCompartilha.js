@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import clipboardCopy from 'clipboard-copy';
 import { useState } from 'react';
+import clipboardCopy from 'clipboard-copy';
 import shareImage from '../images/shareIcon.svg';
 
 function BtnCompartilhar({ index, type, idReference }) {
@@ -9,20 +9,21 @@ function BtnCompartilhar({ index, type, idReference }) {
   const copy = clipboardCopy;
 
   const handleShareClick = () => {
-    setCopyLink(true);
     const url = `/${recipeType}/${idReference}`;
+    console.log(url);
     copy(`http://localhost:3000${url}`);
-    console.log(`http://localhost:3000${url}`);
+    setCopyLink(true);
   };
 
   return (
     <div>
       { copyLink && <p>Link copied!</p> }
       <button
-        data-testid={ `${index}-horizontal-share-btn` }
+        // data-testid={ `${index}-horizontal-share-btn` }
         onClick={ handleShareClick }
       >
         <img
+          data-testid={ `${index}-horizontal-share-btn` }
           src={ shareImage }
           alt="share"
         />
