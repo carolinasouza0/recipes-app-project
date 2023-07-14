@@ -1,14 +1,25 @@
 // import BtnCompartilhar from '../components/BtnCompartilha';
+import { useContext, useEffect } from 'react';
 import BtnDrinks from '../components/BtnDrinks';
 import BtnFilterAll from '../components/BtnFilterAll';
 import BtnMeals from '../components/BtnMeals';
 import CardDoneDrinks from '../components/CardDoneDrinks';
 import CardDoneMeals from '../components/CardDoneMeals';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
 
 function DoneRecipes() {
   const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(doneRecipesStorage);
+  // console.log(doneRecipesStorage);
+
+  const {
+    doneRecipes,
+    setDoneRecipes,
+  } = useContext(RecipesContext);
+
+  useEffect(() => {
+    setDoneRecipes(doneRecipesStorage);
+  }, []);
 
   return (
     <div>
@@ -18,9 +29,8 @@ function DoneRecipes() {
       <BtnMeals />
       <BtnDrinks />
       {
-        doneRecipesStorage.map((item, index) => (
-          Object.keys(item)[0] === 'idMeal'
-          // item.includes('idMeal')
+        doneRecipes.map((item, index) => (
+          item.type === 'meal'
             ? <CardDoneMeals key={ index } item={ item } index={ index } />
             : <CardDoneDrinks key={ index } item={ item } index={ index } />
         ))

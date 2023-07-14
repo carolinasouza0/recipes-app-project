@@ -27,7 +27,7 @@ function RecipeDetails({ type }) {
 
   const btnCondition = () => {
     const doneRecipes = localStorage.getItem('doneRecipes');
-    console.log(doneRecipes);
+    // console.log(doneRecipes);
     if (doneRecipes) {
       const doneRecipesArray = JSON.parse(doneRecipes);
       console.log(doneRecipesArray);

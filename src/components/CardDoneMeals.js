@@ -1,63 +1,56 @@
 import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import BtnCompartilhar from './BtnCompartilha';
 
 function CardDoneMeals({ item, index }) {
   const limiteTag = 2;
-  const tags = (strTags) => {
-    if (!strTags) {
-      return [];
-    }
-    const splitTag = strTags.split(/,/);
-    return splitTag;
-  };
-
-  console.log(tags(item.strTags));
+  // const { push } = useHistory();
+  const history = useHistory();
 
   return (
     <div key={ index }>
       {
-        ` é comida ${item.strMeal}`
+        ` é comida ${item.name}`
       }
-      <img
-      // [data-testid="1-horizontal-image"]
-        data-testid={ `${index}-horizontal-image` }
-        // src={ item[`str${mealOrDrink}Thumb`] }
-        src={ item.strMealThumb }
-        alt={ item.strMeal }
-      />
+      {/* <Link to={ `/meals/${item.id}` }> */}
+      <button
+        type="button"
+        onClick={ () => history.push(`/meals/${item.id}`) }
+        // data-testid={ `${index}-horizontal-image` }
+
+      >
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          src={ item.image }
+          alt={ item.image }
+        />
+      </button>
+      {/* </Link> */}
       <p
         data-testid={ `${index}-horizontal-top-text` }
       >
-        {` ${item.strArea} - ${item.strCategory}`}
+        {` ${item.nationality} - ${item.category}`}
       </p>
       <p
         data-testid={ `${index}-horizontal-name` }
       >
-        { item.strMeal }
+        { item.name }
       </p>
       <p
         data-testid={ `${index}-horizontal-done-date` }
       >
-        { item.dateModified }
+        { item.doneDate }
       </p>
-      <BtnCompartilhar index={ index } type="meals" idReference={ item.idMeal } />
+      <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
       {
-        (tags(item.strTags)).length < 1 ? (
+        item.tags.slice(0, limiteTag).map((tag, indexTag) => (
           <p
-            data-testid={ `${index}-${item.strTags}-horizontal-tag` }
+            key={ indexTag }
+            data-testid={ `${index}-${tag}-horizontal-tag` }
           >
-            {item.strTags}
-          </p>) : (
-          tags(item.strTags).slice(0, limiteTag).map((tag, indexTag) => (
-            <p
-              key={ indexTag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-            >
-              { tag }
-            </p>
-          ))
-
-        )
+            { tag }
+          </p>
+        ))
       }
     </div>
   );
@@ -66,14 +59,14 @@ function CardDoneMeals({ item, index }) {
 CardDoneMeals.propTypes = {
   index: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    dateModified: PropTypes.number,
-    strArea: PropTypes.string,
-    strCategory: PropTypes.string,
-    strMeal: PropTypes.string,
-    strMealThumb: PropTypes.string,
-    strTags: PropTypes.string,
-    strAlcoholic: PropTypes.string,
-    idMeal: PropTypes.number,
+    doneDate: PropTypes.number,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    nationality: PropTypes.string,
+    category: PropTypes.string,
+    doneData: PropTypes.string,
+    tags: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
 };
 

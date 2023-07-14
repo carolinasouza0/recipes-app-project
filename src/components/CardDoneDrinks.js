@@ -1,75 +1,65 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import BtnCompartilhar from './BtnCompartilha';
 
 function CardDoneDrinks({ item, index }) {
   const limiteTag = 2;
-  const tags = (strTags) => {
-    if (!strTags) {
-      return [];
-    }
-    const splitTag = strTags.split(/,/);
-    return splitTag;
-  };
-  // console.log(tags(item.strTags));
+  // console.log(tags(item));
   return (
+
     <div key={ index }>
       {
-        ` é comida ${item.strDrink}`
+        ` é comida ${item.name}`
       }
-      <img
-        data-testid={ `${index}-horizontal-image` }
-        src={ item.strDrinkThumb }
-        alt={ item.strDrinkThumb }
-      />
+      <Link to={ `/drinks/${item.id}` }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          src={ item.image }
+          alt={ item.image }
+        />
+      </Link>
+
       <p
         data-testid={ `${index}-horizontal-top-text` }
       >
-        {` ${item.strAlcoholic}`}
+        {` ${item.alcoholicOrNot}`}
       </p>
       <p
         data-testid={ `${index}-horizontal-name` }
       >
-        { item.strDrink }
+        { item.name }
       </p>
       <p
         data-testid={ `${index}-horizontal-done-date` }
       >
         {/* aqui é a data que foi feita */}
-        { item.dateModified }
+        { item.doneDate }
       </p>
-      <BtnCompartilhar index={ index } type="drinks" idReference={ item.idDrink } />
+      <BtnCompartilhar index={ index } type="drinks" idReference={ item.id } />
       {
-        (tags(item.strTags)).length < 1 ? (
+        item.tags.slice(0, limiteTag).map((tag, indexTag) => (
           <p
-            data-testid={ `${index}-${item.strTags}-horizontal-tag` }
+            key={ indexTag }
+            data-testid={ `${index}-${tag}-horizontal-tag` }
           >
-            {item.strTags}
-          </p>) : (
-          tags(item.strTags).slice(0, limiteTag).map((tag, indexTag) => (
-            <p
-              key={ indexTag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-            >
-              { tag }
-            </p>
-          ))
-
-        )
+            { tag }
+          </p>
+        ))
       }
     </div>
+
   );
 }
 
 CardDoneDrinks.propTypes = {
   index: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    dateModified: PropTypes.number,
-    strArea: PropTypes.string,
-    strAlcoholic: PropTypes.string,
-    strDrink: PropTypes.string,
-    strDrinkThumb: PropTypes.string,
-    strTags: PropTypes.string,
-    idDrink: PropTypes.number,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
+    doneDate: PropTypes.string,
+    tags: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
 };
 
