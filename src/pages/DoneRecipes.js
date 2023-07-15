@@ -17,6 +17,22 @@ function DoneRecipes() {
     setDoneRecipes,
   } = useContext(RecipesContext);
 
+  const handleCleanFilter = () => {
+    setDoneRecipes(doneRecipesStorage);
+  };
+
+  const filteredMeals = doneRecipesStorage.filter((recipe) => recipe.type === 'meal');
+
+  const handleFilterDoneMeal = () => {
+    setDoneRecipes(filteredMeals);
+  };
+
+  const filteredDrink = doneRecipesStorage.filter((recipe) => recipe.type === 'drink');
+
+  const handleFilterDoneDrink = () => {
+    setDoneRecipes(filteredDrink);
+  };
+
   useEffect(() => {
     setDoneRecipes(doneRecipesStorage);
   }, []);
@@ -25,9 +41,9 @@ function DoneRecipes() {
     <div>
       <Header title="Done Recipes" />
       DoneRecipess
-      <BtnFilterAll />
-      <BtnMeals />
-      <BtnDrinks />
+      <BtnFilterAll handleFilter={ handleCleanFilter } />
+      <BtnMeals handleFilter={ handleFilterDoneMeal } />
+      <BtnDrinks handleFilter={ handleFilterDoneDrink } />
       {
         doneRecipes.map((item, index) => (
           item.type === 'meal'

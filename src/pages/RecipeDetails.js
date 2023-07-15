@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import CardRecomend from '../components/CardRecomend';
 import '../styles/RecipeDetails.css';
-import FavoriteBtn from '../components/FavoriteBtn';
+import FavoriteBtnDetails from '../components/FavoriteBtnDetails';
 import shareImage from '../images/shareIcon.svg';
 
 function RecipeDetails({ type }) {
@@ -141,7 +141,7 @@ function RecipeDetails({ type }) {
               />
 
             </button>
-            <FavoriteBtn
+            <FavoriteBtnDetails
               id={ id }
               type={ type }
               recipe={ recipe }

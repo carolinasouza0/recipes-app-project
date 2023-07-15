@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { getDetailsRecipe } from '../utils/FetchAPI';
-import FavoriteBtn from '../components/FavoriteBtn';
+import FavoriteBtn from '../components/FavoriteBtnDetails';
 import shareImage from '../images/shareIcon.svg';
 import '../styles/RecipeInProgress.css';
 

@@ -1,31 +1,25 @@
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import BtnCompartilhar from './BtnCompartilha';
 
 function CardDoneMeals({ item, index }) {
   const limiteTag = 2;
-  // const { push } = useHistory();
-  const history = useHistory();
+  // console.log(item.id);
 
   return (
     <div key={ index }>
       {
         ` é comida ${item.name}`
       }
-      {/* <Link to={ `/meals/${item.id}` }> */}
-      <button
-        type="button"
-        onClick={ () => history.push(`/meals/${item.id}`) }
-        // data-testid={ `${index}-horizontal-image` }
-
-      >
+      <Link to={ `/meals/${item.id}` }>
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ item.image }
           alt={ item.image }
+          width={ 250 }
         />
-      </button>
-      {/* </Link> */}
+
+      </Link>
       <p
         data-testid={ `${index}-horizontal-top-text` }
       >
@@ -59,13 +53,13 @@ function CardDoneMeals({ item, index }) {
 CardDoneMeals.propTypes = {
   index: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    doneDate: PropTypes.number,
+    doneDate: PropTypes.string,
     name: PropTypes.string,
     image: PropTypes.string,
     nationality: PropTypes.string,
     category: PropTypes.string,
     doneData: PropTypes.string,
-    tags: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.number,
   }).isRequired,
 };

@@ -12,6 +12,7 @@ function RecipesProvider({ children }) {
   const [isSearch, setIsSearch] = useState(false);
   const [filteredCategory, setFilteredCategory] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [favoriteRenderRecipes, setFavoriteRenderRecipes] = useState(true);
 
   const store = useMemo(() => ({
 
@@ -31,9 +32,11 @@ function RecipesProvider({ children }) {
     setIsSearch,
     doneRecipes,
     setDoneRecipes,
+    favoriteRenderRecipes,
+    setFavoriteRenderRecipes,
   }), [
-    doneRecipes,
-    filteredCategory, isFilter, isSearch, recipes, routes, searchInput, searchType]);
+    doneRecipes, filteredCategory, isFilter, isSearch, recipes,
+    routes, searchInput, searchType, favoriteRenderRecipes]);
 
   return (
     <RecipesContext.Provider
