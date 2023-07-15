@@ -1,27 +1,32 @@
-import { useContext } from 'react';
-import RecipesContext from '../context/RecipesContext';
+// import { useContext } from 'react';
+// import RecipesContext from '../context/RecipesContext';
+import PropTypes from 'prop-types';
 
-function BtnMeals() {
-  const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+function BtnMeals({ handleFilter }) {
+  // const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
 
-  const {
-    setDoneRecipes,
-  } = useContext(RecipesContext);
+  // const {
+  //   setDoneRecipes,
+  // } = useContext(RecipesContext);
 
-  const filteredMeals = doneRecipesStorage.filter((recipe) => recipe.type === 'meal');
+  // const filteredMeals = doneRecipesStorage.filter((recipe) => recipe.type === 'meal');
 
-  const handleFilterDoneMeal = () => {
-    setDoneRecipes(filteredMeals);
-  };
+  // const handleFilterDoneMeal = () => {
+  //   setDoneRecipes(filteredMeals);
+  // };
 
   return (
     <button
       data-testid="filter-by-meal-btn"
-      onClick={ handleFilterDoneMeal }
+      onClick={ handleFilter }
     >
       Meals
     </button>
   );
 }
+
+BtnMeals.propTypes = {
+  handleFilter: PropTypes.func.isRequired,
+};
 
 export default BtnMeals;

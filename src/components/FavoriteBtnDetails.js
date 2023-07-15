@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function FavoriteBtn({ id, type, recipe }) {
+function FavoriteBtnDetails({ id, type, recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
@@ -44,7 +44,6 @@ function FavoriteBtn({ id, type, recipe }) {
   useEffect(() => {
     favoriteCondition();
   }, []);
-
   return (
     <button
       type="button"
@@ -68,10 +67,10 @@ function FavoriteBtn({ id, type, recipe }) {
   );
 }
 
-FavoriteBtn.propTypes = {
+FavoriteBtnDetails.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   recipe: PropTypes.arrayOf().isRequired,
 };
 
-export default FavoriteBtn;
+export default FavoriteBtnDetails;

@@ -16,18 +16,19 @@ function CardDoneDrinks({ item, index }) {
           data-testid={ `${index}-horizontal-image` }
           src={ item.image }
           alt={ item.image }
+          width={ 250 }
         />
+        <p
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { item.name }
+        </p>
       </Link>
 
       <p
         data-testid={ `${index}-horizontal-top-text` }
       >
         {` ${item.alcoholicOrNot}`}
-      </p>
-      <p
-        data-testid={ `${index}-horizontal-name` }
-      >
-        { item.name }
       </p>
       <p
         data-testid={ `${index}-horizontal-done-date` }
