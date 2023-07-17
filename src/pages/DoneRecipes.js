@@ -21,15 +21,13 @@ function DoneRecipes() {
     setDoneRecipes(doneRecipesStorage);
   };
 
-  const filteredMeals = doneRecipesStorage.filter((recipe) => recipe.type === 'meal');
-
   const handleFilterDoneMeal = () => {
+    const filteredMeals = doneRecipesStorage.filter((recipe) => recipe.type === 'meal');
     setDoneRecipes(filteredMeals);
   };
 
-  const filteredDrink = doneRecipesStorage.filter((recipe) => recipe.type === 'drink');
-
   const handleFilterDoneDrink = () => {
+    const filteredDrink = doneRecipesStorage.filter((recipe) => recipe.type === 'drink');
     setDoneRecipes(filteredDrink);
   };
 
@@ -40,16 +38,16 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      DoneRecipess
       <BtnFilterAll handleFilter={ handleCleanFilter } />
       <BtnMeals handleFilter={ handleFilterDoneMeal } />
       <BtnDrinks handleFilter={ handleFilterDoneDrink } />
       {
-        doneRecipes.map((item, index) => (
-          item.type === 'meal'
-            ? <CardDoneMeals key={ index } item={ item } index={ index } />
-            : <CardDoneDrinks key={ index } item={ item } index={ index } />
-        ))
+        doneRecipes !== null && (
+          doneRecipes.map((item, index) => (
+            item.type === 'meal'
+              ? <CardDoneMeals key={ index } item={ item } index={ index } />
+              : <CardDoneDrinks key={ index } item={ item } index={ index } />
+          )))
       }
     </div>
   );

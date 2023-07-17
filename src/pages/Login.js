@@ -27,25 +27,22 @@ function Login() {
   return (
     <div>
       <form>
-        <label>
-          Digite seu email
-          <input
-            type="email"
-            data-testid="email-input"
-            name="email"
-            value={ email }
-            onChange={ (e) => setEmail(e.target.value) }
-          />
-        </label>
-        <label>
-          Digite sua senha
-          <input
-            type="password"
-            data-testid="password-input"
-            value={ password }
-            onChange={ (e) => setPassword(e.target.value) }
-          />
-        </label>
+        <h1>LOGIN</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          data-testid="email-input"
+          name="email"
+          value={ email }
+          onChange={ (e) => setEmail(e.target.value) }
+        />
+        <input
+          placeholder="Password"
+          type="password"
+          data-testid="password-input"
+          value={ password }
+          onChange={ (e) => setPassword(e.target.value) }
+        />
         <button
           type="submit"
           data-testid="login-submit-btn"
@@ -54,7 +51,7 @@ function Login() {
             (password.length < minCharacter || !validacaoEmail(email))
           }
         >
-          Entrar
+          ENTER
         </button>
       </form>
 
