@@ -131,7 +131,7 @@ function RecipeInProgress({ type }) {
       <h1
         data-testid="recipe-title"
       >
-        { recipeType }
+        { recipe[0]?.strMeal || recipe[0]?.strDrink }
       </h1>
       <ul>
         {listIngredients.map((ingredient, index) => (
