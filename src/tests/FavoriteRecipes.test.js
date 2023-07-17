@@ -248,4 +248,45 @@ describe('Testando página de Favorite Recipes', () => {
     const favoriteButton2 = screen.queryByTestId('1-horizontal-favorite-btn');
     expect(favoriteButton2).not.toBeInTheDocument();
   });
+
+  it('Testa se ao desfavoritar uma receita, ela é removida do localStorage', async () => {
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push(ROUTE_FAVORITE_RECIPES);
+    });
+
+    const favoriteButton = await screen.findByTestId('0-horizontal-favorite-btn');
+    expect(favoriteButton).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(favoriteButton);
+    });
+
+    const drink = JSON.parse(localStorage.getItem('favoriteRecipes'))[0];
+    expect(drink).toHaveProperty('id', '17203');
+    expect(drink.type).toBe('drink');
+
+    const recipeName = screen.getByTestId(RECIPE_NAME_TESTID0);
+    expect(recipeName).toBeInTheDocument();
+
+    const recipeName2 = screen.queryByTestId(RECIPE_NAME_TESTID1);
+    expect(recipeName2).not.toBeInTheDocument();
+
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    expect(favoriteRecipes).toHaveLength(1);
+  });
+
+  it('Testa se retorna um array vazio caso não tenha receitas favoritas', async () => {
+    localStorage.clear();
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push(ROUTE_FAVORITE_RECIPES);
+    });
+
+    const recipeName = screen.queryByTestId(RECIPE_NAME_TESTID0);
+    expect(recipeName).not.toBeInTheDocument();
+
+    const recipeName2 = screen.queryByTestId(RECIPE_NAME_TESTID1);
+    expect(recipeName2).not.toBeInTheDocument();
+  });
 });

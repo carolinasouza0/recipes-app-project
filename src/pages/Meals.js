@@ -49,14 +49,15 @@ function Meals() {
       <BtnAll />
       <h1>Meals</h1>
       {
-        arrCardMeals.slice(0, limiteCard).map((item, index) => (
-          <Card
-            key={ index }
-            item={ item }
-            index={ index }
-            route="meals"
-          />
-        ))
+        arrCardMeals !== null && (
+          arrCardMeals.slice(0, limiteCard).map((item, index) => (
+            <Card
+              key={ index }
+              item={ item }
+              index={ index }
+              route="meals"
+            />
+          )))
       }
       <Footer />
     </div>
