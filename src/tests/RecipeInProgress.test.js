@@ -6,15 +6,18 @@ import RecipesProvider from '../context/RecipesProvider';
 import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
 import oneDrink from '../../cypress/mocks/oneDrink';
+// import mockDrinkStorage from './helpers/inProgressMockDrink';
+// import mockMealStorage from './helpers/inProgressMockMeal';
 
 const ROUTE_MEALS_ID = '/meals/52771/in-progress';
-// const TEST_ID_CHECKBOX = '0-ingredient-checkbox';
 const recipeType = 'meals';
 const id = '52771';
 
 const ROUTE_DRINKS_ID = '/drinks/178319/in-progress';
 const recipeDrinkType = 'drinks';
 const drinkId = '178319';
+
+const finishRecipeBtnId = 'finish-recipe-btn';
 
 describe('RecipeInProgress', () => {
   beforeEach(() => {
@@ -112,6 +115,43 @@ describe('RecipeInProgress', () => {
     expect(ingredientCheckbox.classList.contains('strikethrough')).toBe(false);
 
     expect(JSON.parse(localStorage.getItem('inProgressRecipes'))).toEqual(savedProgress);
+  });
+  test('Verifica se botão Finish habilita ao clicar em todos checkBox e salva no localStorage as informações de Drink', async () => {
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push(ROUTE_MEALS_ID);
+    });
+
+    const ingredientCheckbox1 = await screen.findByRole('checkbox', { name: /penne rigate /i });
+    const ingredientCheckbox2 = await screen.findByRole('checkbox', { name: /olive oil/i });
+    const ingredientCheckbox3 = await screen.findByRole('checkbox', { name: /garlic -/i });
+    const ingredientCheckbox4 = await screen.findByRole('checkbox', { name: /chopped tomatoes/i });
+    const ingredientCheckbox5 = await screen.findByRole('checkbox', { name: /red chile flakes/i });
+    const ingredientCheckbox6 = await screen.findByRole('checkbox', { name: /italian seasoning/i });
+    const ingredientCheckbox7 = await screen.findByRole('checkbox', { name: /basil/i });
+    const ingredientCheckbox8 = await screen.findByRole('checkbox', { name: /Parmigiano-Reggiano/i });
+
+    act(() => {
+      userEvent.click(ingredientCheckbox1);
+      userEvent.click(ingredientCheckbox2);
+      userEvent.click(ingredientCheckbox3);
+      userEvent.click(ingredientCheckbox4);
+      userEvent.click(ingredientCheckbox5);
+      userEvent.click(ingredientCheckbox6);
+      userEvent.click(ingredientCheckbox7);
+      userEvent.click(ingredientCheckbox8);
+    });
+    expect(screen.getByTestId(finishRecipeBtnId)).toBeEnabled();
+    const finishRecipeBtn = screen.getByTestId(finishRecipeBtnId);
+    act(() => {
+      userEvent.click(finishRecipeBtn);
+    });
+
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    expect(doneRecipes.length).toBe(1);
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/done-recipes');
   });
 });
 
@@ -212,7 +252,7 @@ describe('RecipeInProgress', () => {
     expect(JSON.parse(localStorage.getItem('inProgressRecipes'))).toEqual(savedProgress);
   });
 
-  test('Verifica se botão Finish habilita ao clicar em todos checkBox', async () => {
+  test('Verifica se botão Finish habilita ao clicar em todos checkBox e salva no localStorage as informações de Drink', async () => {
     const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
     act(() => {
       history.push(ROUTE_DRINKS_ID);
@@ -220,13 +260,23 @@ describe('RecipeInProgress', () => {
 
     const ingredientCheckbox1 = await screen.findByRole('checkbox', { name: /Hpnotiq/i });
     const ingredientCheckbox2 = await screen.findByRole('checkbox', { name: /Pineapple Juice/i });
-    const ingredientCheckbox3 = await screen.findByRole('checkbox', { name: /Banana Liqueur pwwww/i });
+    const ingredientCheckbox3 = await screen.findByRole('checkbox', { name: /Banana Liqueur/i });
 
     act(() => {
       userEvent.click(ingredientCheckbox1);
       userEvent.click(ingredientCheckbox2);
       userEvent.click(ingredientCheckbox3);
     });
-    expect(screen.getByTestId('finish-recipe-btn')).toBeEnabled();
+    expect(screen.getByTestId(finishRecipeBtnId)).toBeEnabled();
+    const finishRecipeBtn = screen.getByTestId(finishRecipeBtnId);
+    act(() => {
+      userEvent.click(finishRecipeBtn);
+
+      const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      expect(doneRecipes.length).toBe(2);
+
+      const { pathname } = history.location;
+      expect(pathname).toBe('/done-recipes');
+    });
   });
 });

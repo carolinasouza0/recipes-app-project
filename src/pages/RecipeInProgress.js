@@ -49,9 +49,8 @@ function RecipeInProgress({ type }) {
     } else {
       updatedIngredients.push(index);
     }
-    const allChecked = listIngredients.every(
-      (ingredient, i) => updatedIngredients.includes(i),
-    );
+    const allChecked = listIngredients
+      .every((ingredient, i) => updatedIngredients.includes(i));
 
     setAllIngredientsChecked(allChecked);
     setCompletedIngredients(updatedIngredients);
@@ -59,20 +58,12 @@ function RecipeInProgress({ type }) {
     const savedProgress = localStorage.getItem('inProgressRecipes');
     const progressData = savedProgress ? JSON.parse(savedProgress) : {};
 
-    const recipeIngredients = {
+    progressData[recipeType] = {
       ...(progressData[recipeType] || {}),
       [recipeId]: updatedIngredients,
     };
 
-    const updatedInProgressRecipes = {
-      ...progressData,
-      [recipeType]: {
-        ...(progressData[recipeType] || {}),
-        ...recipeIngredients,
-      },
-    };
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(updatedInProgressRecipes));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressData));
   };
 
   const handleFinishRecipe = () => {
