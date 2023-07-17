@@ -53,14 +53,15 @@ function Drinks() {
       <BtnAll />
       <h1>Drinks</h1>
       {
-        arrCardDrinks.slice(0, limiteCard).map((item, index) => (
-          <Card
-            key={ index }
-            item={ item }
-            index={ index }
-            route="drinks"
-          />
-        ))
+        arrCardDrinks !== null && (
+          arrCardDrinks.slice(0, limiteCard).map((item, index) => (
+            <Card
+              key={ index }
+              item={ item }
+              index={ index }
+              route="drinks"
+            />
+          )))
       }
       <Footer />
     </div>

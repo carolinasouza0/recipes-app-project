@@ -21,6 +21,8 @@ function Card({ item, index, route }) {
           data-testid={ `${index}-card-img` }
           src={ item[`str${mealOrDrink}Thumb`] }
           alt={ item[`str${mealOrDrink}Thumb`] }
+          // width="100%"
+          // height="315px"
         />
         <p data-testid={ `${index}-card-name` }>{ item[`str${mealOrDrink}`]}</p>
       </div>
