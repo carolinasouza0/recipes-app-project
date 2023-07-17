@@ -2,8 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
-// import oneMeal from '../../cypress/mocks/oneMeal';
-// import oneDrink from '../../cypress/mocks/oneDrink';
 import favoriteRecipesMock from './helpers/favoriteRecipesMock';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
@@ -15,6 +13,7 @@ const RECIPE_IMAGE_TESTID0 = '0-horizontal-image';
 const RECIPE_IMAGE_TESTID1 = '1-horizontal-image';
 const SHARE_BUTTON_TESTID0 = '0-horizontal-share-btn';
 const ROUTE_FAVORITE_RECIPES = '/favorite-recipes';
+const FAVORITE_BUTTON_TESTID0 = '0-horizontal-favorite-btn';
 
 describe('Testando página de Favorite Recipes', () => {
   beforeEach(() => {
@@ -49,7 +48,7 @@ describe('Testando página de Favorite Recipes', () => {
     const shareButton = screen.getByTestId(SHARE_BUTTON_TESTID0);
     expect(shareButton).toBeInTheDocument();
 
-    const favoriteButton2 = screen.getByTestId('0-horizontal-favorite-btn');
+    const favoriteButton2 = screen.getByTestId(FAVORITE_BUTTON_TESTID0);
     expect(favoriteButton2).toBeInTheDocument();
   });
 
@@ -225,7 +224,7 @@ describe('Testando página de Favorite Recipes', () => {
       history.push(ROUTE_FAVORITE_RECIPES);
     });
 
-    const favoriteButton = await screen.findByTestId('0-horizontal-favorite-btn');
+    const favoriteButton = await screen.findByTestId(FAVORITE_BUTTON_TESTID0);
     expect(favoriteButton).toBeInTheDocument();
 
     act(() => {
@@ -247,5 +246,46 @@ describe('Testando página de Favorite Recipes', () => {
 
     const favoriteButton2 = screen.queryByTestId('1-horizontal-favorite-btn');
     expect(favoriteButton2).not.toBeInTheDocument();
+  });
+
+  it('Testa se ao desfavoritar uma receita, ela é removida do localStorage', async () => {
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push(ROUTE_FAVORITE_RECIPES);
+    });
+
+    const favoriteButton = await screen.findByTestId(FAVORITE_BUTTON_TESTID0);
+    expect(favoriteButton).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(favoriteButton);
+    });
+
+    const drink = JSON.parse(localStorage.getItem('favoriteRecipes'))[0];
+    expect(drink).toHaveProperty('id', '17203');
+    expect(drink.type).toBe('drink');
+
+    const recipeName = screen.getByTestId(RECIPE_NAME_TESTID0);
+    expect(recipeName).toBeInTheDocument();
+
+    const recipeName2 = screen.queryByTestId(RECIPE_NAME_TESTID1);
+    expect(recipeName2).not.toBeInTheDocument();
+
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    expect(favoriteRecipes).toHaveLength(1);
+  });
+
+  it('Testa se retorna um array vazio caso não tenha receitas favoritas', async () => {
+    localStorage.clear();
+    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    act(() => {
+      history.push(ROUTE_FAVORITE_RECIPES);
+    });
+
+    const recipeName = screen.queryByTestId(RECIPE_NAME_TESTID0);
+    expect(recipeName).not.toBeInTheDocument();
+
+    const recipeName2 = screen.queryByTestId(RECIPE_NAME_TESTID1);
+    expect(recipeName2).not.toBeInTheDocument();
   });
 });

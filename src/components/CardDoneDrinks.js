@@ -8,9 +8,6 @@ function CardDoneDrinks({ item, index }) {
   return (
 
     <div key={ index }>
-      {
-        ` é comida ${item.name}`
-      }
       <Link to={ `/drinks/${item.id}` }>
         <img
           data-testid={ `${index}-horizontal-image` }
@@ -18,11 +15,11 @@ function CardDoneDrinks({ item, index }) {
           alt={ item.image }
           width={ 250 }
         />
-        <p
+        <h4
           data-testid={ `${index}-horizontal-name` }
         >
           { item.name }
-        </p>
+        </h4>
       </Link>
 
       <p
@@ -30,13 +27,6 @@ function CardDoneDrinks({ item, index }) {
       >
         {` ${item.alcoholicOrNot}`}
       </p>
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        {/* aqui é a data que foi feita */}
-        { item.doneDate }
-      </p>
-      <BtnCompartilhar index={ index } type="drinks" idReference={ item.id } />
       {
         item.tags.slice(0, limiteTag).map((tag, indexTag) => (
           <p
@@ -47,6 +37,13 @@ function CardDoneDrinks({ item, index }) {
           </p>
         ))
       }
+      <p
+        data-testid={ `${index}-horizontal-done-date` }
+      >
+        {/* aqui é a data que foi feita */}
+        { item.doneDate }
+      </p>
+      <BtnCompartilhar index={ index } type="drinks" idReference={ item.id } />
     </div>
 
   );

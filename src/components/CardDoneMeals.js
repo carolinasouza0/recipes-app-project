@@ -8,9 +8,6 @@ function CardDoneMeals({ item, index }) {
 
   return (
     <div key={ index }>
-      {
-        ` é comida ${item.name}`
-      }
       <Link to={ `/meals/${item.id}` }>
         <img
           data-testid={ `${index}-horizontal-image` }
@@ -18,6 +15,11 @@ function CardDoneMeals({ item, index }) {
           alt={ item.image }
           width={ 250 }
         />
+        <h4
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { item.name }
+        </h4>
 
       </Link>
       <p
@@ -25,17 +27,6 @@ function CardDoneMeals({ item, index }) {
       >
         {` ${item.nationality} - ${item.category}`}
       </p>
-      <p
-        data-testid={ `${index}-horizontal-name` }
-      >
-        { item.name }
-      </p>
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        { item.doneDate }
-      </p>
-      <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
       {
         item.tags.slice(0, limiteTag).map((tag, indexTag) => (
           <p
@@ -46,6 +37,12 @@ function CardDoneMeals({ item, index }) {
           </p>
         ))
       }
+      <p
+        data-testid={ `${index}-horizontal-done-date` }
+      >
+        { item.doneDate }
+      </p>
+      <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
     </div>
   );
 }
