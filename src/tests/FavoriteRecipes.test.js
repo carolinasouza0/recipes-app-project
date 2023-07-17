@@ -2,8 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
-// import oneMeal from '../../cypress/mocks/oneMeal';
-// import oneDrink from '../../cypress/mocks/oneDrink';
 import favoriteRecipesMock from './helpers/favoriteRecipesMock';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
@@ -15,6 +13,7 @@ const RECIPE_IMAGE_TESTID0 = '0-horizontal-image';
 const RECIPE_IMAGE_TESTID1 = '1-horizontal-image';
 const SHARE_BUTTON_TESTID0 = '0-horizontal-share-btn';
 const ROUTE_FAVORITE_RECIPES = '/favorite-recipes';
+const FAVORITE_BUTTON_TESTID0 = '0-horizontal-favorite-btn';
 
 describe('Testando página de Favorite Recipes', () => {
   beforeEach(() => {
@@ -49,7 +48,7 @@ describe('Testando página de Favorite Recipes', () => {
     const shareButton = screen.getByTestId(SHARE_BUTTON_TESTID0);
     expect(shareButton).toBeInTheDocument();
 
-    const favoriteButton2 = screen.getByTestId('0-horizontal-favorite-btn');
+    const favoriteButton2 = screen.getByTestId(FAVORITE_BUTTON_TESTID0);
     expect(favoriteButton2).toBeInTheDocument();
   });
 
@@ -225,7 +224,7 @@ describe('Testando página de Favorite Recipes', () => {
       history.push(ROUTE_FAVORITE_RECIPES);
     });
 
-    const favoriteButton = await screen.findByTestId('0-horizontal-favorite-btn');
+    const favoriteButton = await screen.findByTestId(FAVORITE_BUTTON_TESTID0);
     expect(favoriteButton).toBeInTheDocument();
 
     act(() => {
@@ -255,7 +254,7 @@ describe('Testando página de Favorite Recipes', () => {
       history.push(ROUTE_FAVORITE_RECIPES);
     });
 
-    const favoriteButton = await screen.findByTestId('0-horizontal-favorite-btn');
+    const favoriteButton = await screen.findByTestId(FAVORITE_BUTTON_TESTID0);
     expect(favoriteButton).toBeInTheDocument();
 
     act(() => {
