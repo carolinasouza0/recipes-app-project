@@ -42,18 +42,37 @@ function RecipeInProgress({ type }) {
     setCopyLink(true);
   };
 
-  const handleCheckboxChange = (index) => {
+  const handleCheckboxChange = (index, recipeId) => {
     const updatedIngredients = [...completedIngredients];
     if (completedIngredients.includes(index)) {
       updatedIngredients.splice(updatedIngredients.indexOf(index), 1);
     } else {
       updatedIngredients.push(index);
     }
+    const allChecked = listIngredients.every(
+      (ingredient, i) => updatedIngredients.includes(i),
+    );
+
+    setAllIngredientsChecked(allChecked);
     setCompletedIngredients(updatedIngredients);
 
-    const allChecked = listIngredients
-      .every((ingredient, i) => updatedIngredients.includes(i));
-    setAllIngredientsChecked(allChecked);
+    const savedProgress = localStorage.getItem('inProgressRecipes');
+    const progressData = savedProgress ? JSON.parse(savedProgress) : {};
+
+    const recipeIngredients = {
+      ...(progressData[recipeType] || {}),
+      [recipeId]: updatedIngredients,
+    };
+
+    const updatedInProgressRecipes = {
+      ...progressData,
+      [recipeType]: {
+        ...(progressData[recipeType] || {}),
+        ...recipeIngredients,
+      },
+    };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(updatedInProgressRecipes));
   };
 
   const handleFinishRecipe = () => {
@@ -86,7 +105,7 @@ function RecipeInProgress({ type }) {
     const savedProgress = localStorage.getItem('inProgressRecipes');
     if (savedProgress) {
       const progressData = JSON.parse(savedProgress);
-      const savedIngredients = progressData[recipeType][id];
+      const savedIngredients = progressData[recipeType] && progressData[recipeType][id];
       if (savedIngredients) {
         setCompletedIngredients(savedIngredients);
       }

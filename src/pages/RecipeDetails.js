@@ -40,10 +40,12 @@ function RecipeDetails({ type }) {
     const inProgressRecipes = localStorage.getItem('inProgressRecipes');
     if (inProgressRecipes) {
       const inProgress = JSON.parse(inProgressRecipes);
-      const check = Object.keys(inProgress[recipeType])
-        .some((element) => element === id);
-      if (check) {
-        setNameBtn('Continue Recipe');
+      if (inProgress && inProgress[recipeType]) {
+        const check = Object.keys(inProgress[recipeType])
+          .some((element) => element === id);
+        if (check) {
+          setNameBtn('Continue Recipe');
+        }
       }
     }
   };
