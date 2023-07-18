@@ -48,6 +48,7 @@ function DoneRecipes() {
               ? <CardDoneMeals key={ index } item={ item } index={ index } />
               : <CardDoneDrinks key={ index } item={ item } index={ index } />
           )))
+
       }
     </div>
   );
