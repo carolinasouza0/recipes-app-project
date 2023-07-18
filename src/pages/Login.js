@@ -3,6 +3,7 @@ import { useContext,
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { validacaoEmail } from '../utils/validacaoEmail';
 import UserContext from '../context/UserContext';
+import '../index.css';
 
 function Login() {
   const {
@@ -25,7 +26,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="w-96 h-96 bg-darkBlue">
       <form>
         <h1>LOGIN</h1>
         <input
