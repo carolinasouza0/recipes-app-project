@@ -18,6 +18,7 @@ function BtnFavoritePage({ id, type, index, receiveRecipe }) {
 
   useEffect(() => {
     favoriteCondition();
+    setFavoriteRenderRecipes(true);
   }, []);
 
   const setFavoriteStorage = () => {
@@ -44,6 +45,7 @@ function BtnFavoritePage({ id, type, index, receiveRecipe }) {
     setFavoriteStorage();
     setIsFavorite(!isFavorite);
     setFavoriteRenderRecipes(!favoriteRenderRecipes);
+    // setFavoriteRenderRecipes(true);
   };
 
   return (
