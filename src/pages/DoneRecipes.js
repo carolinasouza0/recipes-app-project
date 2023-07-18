@@ -38,6 +38,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
+
       <BtnFilterAll handleFilter={ handleCleanFilter } />
       <BtnMeals handleFilter={ handleFilterDoneMeal } />
       <BtnDrinks handleFilter={ handleFilterDoneDrink } />
