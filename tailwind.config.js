@@ -15,6 +15,12 @@ module.exports = {
       typeGray: '#797D86',
     },
     extend: {
+      width: {
+        360: '360px',
+      },
+      height: {
+        640: '640px',
+      },
       backgroundImage: {
         // 'icon-Recipes': "url('./src/images/iconRecipes')",
       },
