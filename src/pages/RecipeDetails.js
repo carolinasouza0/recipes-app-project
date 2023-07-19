@@ -16,7 +16,6 @@ function RecipeDetails({ type }) {
   const { id } = useParams();
   const history = useHistory();
   const copy = clipboardCopy;
-
   const recipeType = type === 'meals' ? 'meals' : 'drinks';
   const typeOfRecipe = type === 'meals' ? 'Meal' : 'Drink';
 
@@ -64,11 +63,9 @@ function RecipeDetails({ type }) {
     const newUrl = url.slice(index + 1);
     return `https://www.youtube.com/embed/${newUrl}`;
   };
-  // console.log(recipeType);
 
   const handleClick = () => {
     const url = `/${recipeType}/${id}/in-progress`;
-    // console.log(url);
     history.push(url);
   };
 
@@ -82,7 +79,6 @@ function RecipeDetails({ type }) {
     getRecipe();
     btnCondition();
     btnNameCondition();
-    // console.log(recipe);
   }, []);
 
   return (
@@ -106,7 +102,6 @@ function RecipeDetails({ type }) {
               uppercase -top-32 text-white tracking-widest"
             >
               { recipe[0][`str${typeOfRecipe}`] }
-
             </h3>
             <h4
               className="text-center text-xl relative font-black
