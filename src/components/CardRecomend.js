@@ -25,23 +25,26 @@ function CardRecomend({ type }) {
   const recomends = recomendations.slice(0, RECIPES_NUMBER);
 
   return (
-    <div
-      className="carousel"
 
+    <div
+      className="carousel "
     >
       {
         recomends.map((recipe, index) => (
           <div
             key={ index }
             data-testid={ `${index}-recommendation-card` }
-            className="carousel-inner"
+            className="carousel-inner w-40"
           >
             <img
               src={ recipe[`str${typeOfRecipe}Thumb`] }
               alt={ recipe[`str${typeOfRecipe}`] }
               className="recomendation-img"
             />
-            <h3 data-testid={ `${index}-recommendation-title` }>
+            <h3
+              className="text-typeBlack text-sm font-normal m-2.5"
+              data-testid={ `${index}-recommendation-title` }
+            >
               { recipe[`str${typeOfRecipe}`] }
             </h3>
           </div>
@@ -49,6 +52,7 @@ function CardRecomend({ type }) {
         ))
       }
     </div>
+
   );
 }
 

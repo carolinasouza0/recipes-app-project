@@ -1,16 +1,28 @@
 .recomendation-img {
-  height: 200px;
+  height: 9rem;
   object-fit: cover;
-  width: 200px;
+  width: 10rem;
 }
 
 .carousel {
   display: flex;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-stop: always;
   scroll-snap-type: x mandatory;
+  width: 90%;
 }
 
 .carousel-inner {
-  min-width: 100%;
+  background: white;
+  border: 0.518px solid #b1b1b1;
+  border-radius: 0.313rem;
+  display: flex;
+  flex-direction: column;
+  height: 11.7rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  min-width: 50%;
   scroll-snap-align: start;
+  width: 9.5rem;
 }
