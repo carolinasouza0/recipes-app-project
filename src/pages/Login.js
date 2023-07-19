@@ -3,7 +3,7 @@ import { useContext,
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { validacaoEmail } from '../utils/validacaoEmail';
 import UserContext from '../context/UserContext';
-import '../index.css';
+import '../styles/Login.css';
 
 function Login() {
   const {
@@ -26,10 +26,11 @@ function Login() {
   }
 
   return (
-    <div className="w-96 h-96 bg-darkBlue">
+    <div className="bg-darkBlue h-96">
       <form>
-        <h1>LOGIN</h1>
+        <h1 className="title-login">LOGIN</h1>
         <input
+          className="input-email"
           type="email"
           placeholder="Email"
           data-testid="email-input"
@@ -38,6 +39,7 @@ function Login() {
           onChange={ (e) => setEmail(e.target.value) }
         />
         <input
+          className="input-password"
           placeholder="Password"
           type="password"
           data-testid="password-input"
@@ -45,6 +47,7 @@ function Login() {
           onChange={ (e) => setPassword(e.target.value) }
         />
         <button
+          className="btn-login"
           type="submit"
           data-testid="login-submit-btn"
           onClick={ (e) => saveReaload(e) }
