@@ -37,19 +37,24 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header title="Done Recipes" />
-
-      <BtnFilterAll handleFilter={ handleCleanFilter } />
-      <BtnMeals handleFilter={ handleFilterDoneMeal } />
-      <BtnDrinks handleFilter={ handleFilterDoneDrink } />
-      {
-        doneRecipes !== null && (
-          doneRecipes.map((item, index) => (
-            item.type === 'meal'
-              ? <CardDoneMeals key={ index } item={ item } index={ index } />
-              : <CardDoneDrinks key={ index } item={ item } index={ index } />
-          )))
-      }
+      <Header title="DONE RECIPES" />
+      <div
+        className="flex justify-center"
+      >
+        <BtnFilterAll handleFilter={ handleCleanFilter } />
+        <BtnMeals handleFilter={ handleFilterDoneMeal } />
+        <BtnDrinks handleFilter={ handleFilterDoneDrink } />
+      </div>
+      <div>
+        {
+          doneRecipes !== null && (
+            doneRecipes.map((item, index) => (
+              item.type === 'meal'
+                ? <CardDoneMeals key={ index } item={ item } index={ index } />
+                : <CardDoneDrinks key={ index } item={ item } index={ index } />
+            )))
+        }
+      </div>
     </div>
   );
 }
