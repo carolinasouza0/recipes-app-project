@@ -80,7 +80,8 @@ function SearchBar({ showSearchBar }) {
     <div>
       {showSearchBar && (
         <div
-          className="flex-colun items-center bg-darkBlue w-11/12 h-32 m-auto rounded-b-lg  "
+          className="flex-colun items-center
+          bg-darkBlue w-11/12 h-32 m-auto rounded-b-lg  "
         >
           <input
             className="p-2  w-full border-darkBlue rounded-b-lg "
@@ -137,7 +138,8 @@ function SearchBar({ showSearchBar }) {
           </div>
 
           <button
-            className="hover:bg-darkYellow text-lightPurple rounded-lg w-64 p-1 mx-12 my-1 hover:text-darkBlue bg-lightYellow  "
+            className="hover:bg-darkYellow text-lightPurple
+            rounded-lg w-64 p-1 mx-12 my-1 hover:text-darkBlue bg-lightYellow  "
             onClick={ getSearchAPI }
             data-testid="exec-search-btn"
           >

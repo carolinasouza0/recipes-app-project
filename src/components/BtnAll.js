@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
+// import iconePrato from '../images/icone-prato.svg';
 
 function BtnAll() {
   const {
@@ -19,8 +20,14 @@ function BtnAll() {
       data-testid="All-category-filter"
       onClick={ () => handleCleanFilter() }
     >
+      {/* <img
+        className="m-auto"
+        src={ iconePrato }
+        alt="iconePrato"
+      /> */}
       All
     </button>
+
   );
 }
 

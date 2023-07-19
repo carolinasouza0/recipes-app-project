@@ -7,9 +7,13 @@ function Footer() {
   return (
     <div
       data-testid="footer"
-      className="footerPosition "
+      className="footerPosition
+      rounded-t-lg w-[400px] h-16 m-auto rounded-b-lg bg-lightYellow
+      space-x-[300px] m-auto p-2"
     >
-      <button>
+      <button
+        className="hover:bg-darkYellow rounded-full min-w-max"
+      >
         <Link to="/drinks">
           <img
             data-testid="drinks-bottom-btn"
@@ -19,7 +23,9 @@ function Footer() {
           />
         </Link>
       </button>
-      <button>
+      <button
+        className="hover:bg-darkYellow rounded-full min-w-max"
+      >
         <Link to="/meals">
           <img
             data-testid="meals-bottom-btn"
