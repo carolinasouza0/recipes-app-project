@@ -7,6 +7,7 @@ import CardDoneDrinks from '../components/CardDoneDrinks';
 import CardDoneMeals from '../components/CardDoneMeals';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
+import Footer from '../components/Footer';
 
 function DoneRecipes() {
   const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -57,6 +58,7 @@ function DoneRecipes() {
             )))
         }
       </div>
+      <Footer />
     </div>
   );
 }
