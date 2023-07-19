@@ -77,7 +77,7 @@ function SearchBar({ showSearchBar }) {
   // const limite = 12;
 
   return (
-    <div>
+    <div className="bg-black">
       {showSearchBar && (
         <div>
           <input
