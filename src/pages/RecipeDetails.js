@@ -84,7 +84,7 @@ function RecipeDetails({ type }) {
   return (
     <div>
       { recipe.length !== 0 && (
-        <div className="w-96">
+        <div className="w-360">
           <div>
             <img
               className="w-full h-56 object-cover brightness-50"
