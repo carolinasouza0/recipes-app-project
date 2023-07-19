@@ -35,10 +35,8 @@ function Meals() {
   const limiteCard = 12;
   const limiteCategory = 5;
   return (
-    <div
-      // className="flex-column "
-    >
-      <Header title="Meals" />
+    <div>
+      <Header title="MEALS" />
       <section
         className="p-2 border-black w-96  mx-2  "
       >

@@ -10,7 +10,7 @@ function Profile() {
 
   return (
     <div>
-      <Header title="Profile" />
+      <Header title="PROFILE" />
       <p data-testid="profile-email">{ emailUserstorage }</p>
       <Footer />
       <BtnDoneRecipes />

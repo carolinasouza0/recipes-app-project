@@ -19,6 +19,8 @@ function BtnMeals({ handleFilter }) {
     <button
       data-testid="filter-by-meal-btn"
       onClick={ handleFilter }
+      className="rounded-lg bg-lightYellow w-16
+      mx-0.5 text-xs hover:bg-darkYellow text-lightPurple"
     >
       Meals
     </button>

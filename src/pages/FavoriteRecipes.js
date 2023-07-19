@@ -38,12 +38,15 @@ function FavoriteRecipes() {
 
   return (
     <div>
-      <Header title="Favorite Recipes" />
-      <BtnFilterAll handleFilter={ handleAllFilter } />
-      <BtnMeals handleFilter={ handleFilterFavoriteMeal } />
-      <BtnDrinks handleFilter={ handleFilterFavoriteDrink } />
+      <Header title="FAVORITE RECIPES" />
+      <div>
+        <BtnFilterAll handleFilter={ handleAllFilter } />
+        <BtnMeals handleFilter={ handleFilterFavoriteMeal } />
+        <BtnDrinks handleFilter={ handleFilterFavoriteDrink } />
+      </div>
       <CardFavoriteRecipes listOfRecipes={ favoriteRecipes } />
     </div>
+
   );
 }
 

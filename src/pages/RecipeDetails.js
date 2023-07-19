@@ -222,14 +222,14 @@ function RecipeDetails({ type }) {
             <CardRecomend type={ recipeType } />
           </section>
           <div
-            className="flex justify-center mt-16"
+            className="flex justify-center mt-8 mb-4"
           >
             { showBtn && (
               <button
                 type="button"
                 data-testid="start-recipe-btn"
-                className="fixed bottom-0 w-80 h-12 bg-darkYellow
-              text-white font-bold text-base rounded-md"
+                className="w-80 h-10 bg-darkYellow
+              text-white font-bold text-base rounded-md text-center"
                 onClick={ handleClick }
               >
                 { nameBtn }
