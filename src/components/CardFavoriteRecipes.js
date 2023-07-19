@@ -28,7 +28,7 @@ function CardFavoriteRecipes({ listOfRecipes }) {
             </Link>
             <div
               className="
-            flex flex-col w-80 h-44 ml-1 p-2"
+            flex flex-col w-80 h-44 ml-1 p-2 justify-center"
             >
               <Link
                 to={ `/${recipe.type}s/${recipe.id}` }

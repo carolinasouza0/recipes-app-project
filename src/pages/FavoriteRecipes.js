@@ -39,7 +39,9 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="FAVORITE RECIPES" />
-      <div>
+      <div
+        className="flex justify-center mb-3"
+      >
         <BtnFilterAll handleFilter={ handleAllFilter } />
         <BtnMeals handleFilter={ handleFilterFavoriteMeal } />
         <BtnDrinks handleFilter={ handleFilterFavoriteDrink } />
