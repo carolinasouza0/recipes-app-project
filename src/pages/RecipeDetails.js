@@ -4,13 +4,13 @@ import clipboardCopy from 'clipboard-copy';
 import { useEffect, useState } from 'react';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import CardRecomend from '../components/CardRecomend';
-import '../styles/RecipeDetails.css';
 import FavoriteBtnDetails from '../components/FavoriteBtnDetails';
-import shareImage from '../images/shareIcon.svg';
+import shareImage from '../images/Share.png';
+import '../styles/RecipeDetails.css';
 
 function RecipeDetails({ type }) {
   const [recipe, setRecipe] = useState([]);
-  const [nameBtn, setNameBtn] = useState('Start Recipe');
+  const [nameBtn, setNameBtn] = useState('START RECIPE');
   const [showBtn, setShowBtn] = useState(true);
   const [copyLink, setCopyLink] = useState(false);
   const { id } = useParams();
@@ -44,7 +44,7 @@ function RecipeDetails({ type }) {
         const check = Object.keys(inProgress[recipeType])
           .some((element) => element === id);
         if (check) {
-          setNameBtn('Continue Recipe');
+          setNameBtn('CONTINUE RECIPE');
         }
       }
     }
@@ -89,57 +89,46 @@ function RecipeDetails({ type }) {
     <div>
       { recipe.length !== 0 && (
         <div>
-
-          <img
-            src={ recipe[0][`str${typeOfRecipe}Thumb`] }
-            alt={ recipe[0][`str${typeOfRecipe}`] }
-            data-testid="recipe-photo"
-          />
-          <h3 data-testid="recipe-title">{ recipe[0][`str${typeOfRecipe}`] }</h3>
-          <h4 data-testid="recipe-category">
-            { recipe[0].strCategory }
-          </h4>
-          {
-            type === 'drinks' && (
-              <h4 data-testid="recipe-category">
-                { recipe[0].strAlcoholic }
-              </h4>
-            )
-          }
-          <h3>Ingredients:</h3>
-          <ul>
-            { listIngredients.map((ingredient, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                { `${recipe[0][ingredient]} - ${recipe[0][`strMeasure${index + 1}`]}` }
-              </li>
-            )) }
-          </ul>
-          <h3>Instructions:</h3>
-          <p data-testid="instructions">{ recipe[0].strInstructions }</p>
-          {
-            type === 'meals' && (
-              <iframe
-                data-testid="video"
-                title="video"
-                width="100%"
-                height="315px"
-                src={ video() }
-              />
-            )
-          }
           <div>
-            { copyLink && <p>Link copied!</p> }
+            <img
+              className="w-full h-56 object-cover brightness-50"
+              src={ recipe[0][`str${typeOfRecipe}Thumb`] }
+              alt={ recipe[0][`str${typeOfRecipe}`] }
+              data-testid="recipe-photo"
+            />
+          </div>
+          <div
+            className="h-0"
+          >
+            <h3
+              data-testid="recipe-title"
+              className="text-center text-2xl relative font-black
+              uppercase -top-32 text-white tracking-widest"
+            >
+              { recipe[0][`str${typeOfRecipe}`] }
+
+            </h3>
+            <h4
+              className="text-center text-xl relative font-black
+              uppercase -top-32 text-white tracking-widest"
+              data-testid="recipe-category"
+            >
+              { recipe[0].strCategory }
+            </h4>
+          </div>
+          <div
+            className="relative -top-52 left-72"
+          >
             <button
               type="button"
               data-testid="share-btn"
               onClick={ handleShareClick }
+              className="mr-3"
             >
               <img
                 src={ shareImage }
                 alt="share"
+                className="w-6 h-6"
               />
 
             </button>
@@ -149,19 +138,109 @@ function RecipeDetails({ type }) {
               recipe={ recipe }
             />
           </div>
-          <section>
+          {
+            type === 'drinks' && (
+              <h4 data-testid="recipe-category">
+                { recipe[0].strAlcoholic }
+              </h4>
+            )
+          }
+          {
+            copyLink
+          && (
+            <p
+              className="text-white text-sm font-bold relative -top-52 left-60
+              rounded-md p-2 bg-darkYellow w-28 h-10 text-center mt-1"
+            >
+              Link copied!
+
+            </p>
+          )
+          }
+          <h3
+            className="text-typeBlack text-xl font-bold ml-6"
+          >
+            Ingredients:
+
+          </h3>
+          <div
+            className="flex justify-center"
+          >
+            <div
+              className="w-80 border rounded-md flex items-center"
+            >
+              <ul
+                className="list-disc px-8 py-2"
+              >
+                { listIngredients.map((ingredient, index) => (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                    className="text-typeBlack text-sm font-normal leading-loose"
+                  >
+                    {
+                      `${recipe[0][ingredient]} - ${recipe[0][`strMeasure${index + 1}`]}`
+                    }
+                  </li>
+                )) }
+              </ul>
+            </div>
+          </div>
+          <h3
+            className="text-typeBlack text-xl font-bold ml-6 mt-8"
+          >
+            Instructions:
+
+          </h3>
+          <div className="flex justify-center">
+            <p
+              className="w-80 border rounded-md p-4 text-sm"
+              data-testid="instructions"
+            >
+              { recipe[0].strInstructions }
+
+            </p>
+          </div>
+          <div
+            className="flex justify-center"
+          >
+            {
+              type === 'meals' && (
+                <div>
+                  <h3 className="text-typeBlack text-xl font-bold mt-6">Video</h3>
+                  <iframe
+                    data-testid="video"
+                    title="video"
+                    width="100%"
+                    height="315px"
+                    src={ video() }
+                    className="w-80 h-56 object-cover brightness-50"
+                  />
+                </div>
+              )
+            }
+          </div>
+          <h3 className="text-typeBlack text-xl font-bold ml-6 mt-8">Recommended</h3>
+          <section
+            className="flex justify-center"
+          >
             <CardRecomend type={ recipeType } />
           </section>
-          { showBtn && (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn"
-              onClick={ handleClick }
-            >
-              { nameBtn }
-            </button>
-          ) }
+          <div
+            className="flex justify-center mt-16"
+          >
+            { showBtn && (
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="fixed bottom-0 w-80 h-12 bg-darkYellow
+              text-white font-bold text-base rounded-md"
+                onClick={ handleClick }
+              >
+                { nameBtn }
+              </button>
+            ) }
+          </div>
         </div>
       )}
     </div>

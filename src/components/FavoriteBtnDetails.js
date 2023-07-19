@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/like.png';
 
 function FavoriteBtnDetails({ id, type, recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -56,12 +56,14 @@ function FavoriteBtnDetails({ id, type, recipe }) {
             src={ blackHeartIcon }
             alt="favorite"
             data-testid="favorite-btn"
+            className="w-6 h-6"
           />)
         : (
           <img
             src={ whiteHeartIcon }
             alt="favorite"
             data-testid="favorite-btn"
+            className="w-6 h-6"
           />)}
     </button>
   );
