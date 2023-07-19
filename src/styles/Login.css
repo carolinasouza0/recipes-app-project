@@ -14,29 +14,44 @@
 }
 
 .input-password {
-  border: 1px;
+  border: solid 1px rgba(65, 25, 127, 1);
   border-radius: 5px;
   height: 40px;
   left: 42px;
+  position: absolute;
   top: 645px;
   width: 276px;
 }
 
 .input-email {
-  border: 1px;
+  border: solid 1px rgba(65, 25, 127, 1);
   border-radius: 5px;
   height: 40px;
   left: 42px;
+  position: absolute;
   top: 596px;
   width: 276px;
 }
 
 .btn-login {
-  background-color: rgba(65, 25, 127, 1);
   border-radius: 5px;
   color: white;
   height: 40px;
   left: 42px;
+  padding: 2px;
+  position: absolute;
   top: 696px;
   width: 276px;
+}
+
+.input-email::placeholder {
+  color: rgba(65, 25, 127, 0.7);
+  font-size: 14px;
+  text-align: center;
+}
+
+.input-password::placeholder {
+  color: rgba(65, 25, 127, 0.7);
+  font-size: 14px;
+  text-align: center;
 }

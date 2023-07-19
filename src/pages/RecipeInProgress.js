@@ -114,16 +114,21 @@ function RecipeInProgress({ type }) {
 
   return (
     <div>
-      <img
-        src={ recipe[0]?.strMealThumb || recipe[0]?.strDrinkThumb }
-        alt={ recipe[0]?.strMeal || recipe[0]?.strDrink }
-        data-testid="recipe-photo"
-      />
-      <h1
+      <div>
+        <img
+          className="w-full h-56 object-cover brightness-50"
+          src={ recipe[0]?.strMealThumb || recipe[0]?.strDrinkThumb }
+          alt={ recipe[0]?.strMeal || recipe[0]?.strDrink }
+          data-testid="recipe-photo"
+        />
+      </div>
+      <h3
+        className="text-center text-2xl relative font-black
+              uppercase -top-32 text-white tracking-widest"
         data-testid="recipe-title"
       >
         { recipe[0]?.strMeal || recipe[0]?.strDrink }
-      </h1>
+      </h3>
       <ul>
         {listIngredients.map((ingredient, index) => (
           <li key={ index }>
