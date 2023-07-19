@@ -3,7 +3,9 @@ import { useContext,
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { validacaoEmail } from '../utils/validacaoEmail';
 import UserContext from '../context/UserContext';
-import '../index.css';
+import logo from '../images/logoRecipesApp.png';
+import tomate from '../images/tomate.png';
+import '../styles/Login.css';
 
 function Login() {
   const {
@@ -26,10 +28,15 @@ function Login() {
   }
 
   return (
-    <div className="w-96 h-96 bg-darkBlue">
+    <div className="bg-darkBlue h-96 flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center mt-52">
+        <img src={ logo } alt="logo" className="h-32 w-auto object-contain" />
+        <img src={ tomate } alt="tomate" />
+      </div>
       <form>
-        <h1>LOGIN</h1>
+        <h1 className="title-login">LOGIN</h1>
         <input
+          className="input-email"
           type="email"
           placeholder="Email"
           data-testid="email-input"
@@ -38,6 +45,7 @@ function Login() {
           onChange={ (e) => setEmail(e.target.value) }
         />
         <input
+          className="input-password"
           placeholder="Password"
           type="password"
           data-testid="password-input"
@@ -45,6 +53,8 @@ function Login() {
           onChange={ (e) => setPassword(e.target.value) }
         />
         <button
+          className={ `btn-login ${password.length < minCharacter
+            || !validacaoEmail(email) ? 'bg-lightGray' : 'bg-darkYellow'}` }
           type="submit"
           data-testid="login-submit-btn"
           onClick={ (e) => saveReaload(e) }

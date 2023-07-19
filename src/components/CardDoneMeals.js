@@ -7,42 +7,55 @@ function CardDoneMeals({ item, index }) {
   // console.log(item.id);
 
   return (
-    <div key={ index }>
-      <Link to={ `/meals/${item.id}` }>
+    <div
+      key={ index }
+      className="flex w-80 h-36 mb-14"
+    >
+      <Link
+        to={ `/meals/${item.id}` }
+      >
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ item.image }
           alt={ item.image }
           width={ 250 }
         />
-        <h4
-          data-testid={ `${index}-horizontal-name` }
-        >
-          { item.name }
-        </h4>
-
       </Link>
-      <p
-        data-testid={ `${index}-horizontal-top-text` }
+      <div
+        className="border-2 border-solid border-black rounded-lg"
       >
-        {` ${item.nationality} - ${item.category}`}
-      </p>
-      {
-        item.tags.slice(0, limiteTag).map((tag, indexTag) => (
+        <Link
+          to={ `/meals/${item.id}` }
+          className
+        >
           <p
-            key={ indexTag }
-            data-testid={ `${index}-${tag}-horizontal-tag` }
+            data-testid={ `${index}-horizontal-name` }
           >
-            { tag }
+            { item.name }
           </p>
-        ))
-      }
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        { item.doneDate }
-      </p>
-      <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
+        </Link>
+        <p
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          {` ${item.nationality} - ${item.category}`}
+        </p>
+        {
+          item.tags.slice(0, limiteTag).map((tag, indexTag) => (
+            <p
+              key={ indexTag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </p>
+          ))
+        }
+        <p
+          data-testid={ `${index}-horizontal-done-date` }
+        >
+          { item.doneDate }
+        </p>
+        <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
+      </div>
     </div>
   );
 }

@@ -36,7 +36,7 @@ function Meals() {
   const limiteCategory = 5;
   return (
     <div>
-      <Header title="Meals" />
+      <Header title="MEALS" />
       <section
         className="p-2 w-96 mx-2  "
       >
