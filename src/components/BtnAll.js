@@ -16,10 +16,7 @@ function BtnAll() {
 
   return (
     <button
-      className="rounded-lg hover:border-b-4
-      items-center
-      w-24 ml-4 mx-2.5 text-xs hover:lightGray
-      text-lightPurple hover:text-darkBlue"
+      className="rounded-lg bg-lightYellow w-24 mx-2.5 text-xs hover:bg-darkYellow text-lightPurple hover:text-darkBlue p-1 mt-2"
       data-testid="All-category-filter"
       onClick={ () => handleCleanFilter() }
     >

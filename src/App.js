@@ -16,7 +16,7 @@ function App() {
     // width: 360px;
     // height: 640px;
     <div
-      className="w-96"
+      className="w-360 h-640"
     >
       <Switch>
         <Route exact path="/" component={ Login } />
