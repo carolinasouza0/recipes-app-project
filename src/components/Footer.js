@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import mealIcon from '../images/mealIcon.svg';
-import drinkIcon from '../images/drinkIcon.svg';
-import '../styles/footer.css';
+import mealIcon from '../images/icone-prato.svg';
+import drinkIcon from '../images/icone-bebida.svg';
 
 function Footer() {
   return (
     <div
       data-testid="footer"
-      className="footerPosition
-      rounded-t-lg w-[400px] h-16 m-auto rounded-b-lg bg-lightYellow
-      space-x-[300px] m-auto p-2"
+      className="fixed bottom-0 flex justify-center w-360 h-12  bg-darkBlue
+      space-x-[250px] "
     >
-      <button
-        className="hover:bg-darkYellow rounded-full min-w-max"
-      >
+      <button>
         <Link to="/drinks">
           <img
             data-testid="drinks-bottom-btn"
@@ -23,9 +19,7 @@ function Footer() {
           />
         </Link>
       </button>
-      <button
-        className="hover:bg-darkYellow rounded-full min-w-max"
-      >
+      <button>
         <Link to="/meals">
           <img
             data-testid="meals-bottom-btn"
