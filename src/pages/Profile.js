@@ -5,17 +5,26 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
-  const emailUserstorage = localStorage.getItem('user');
+  const emailUserstorage = JSON.parse(localStorage.getItem('user'));
   // const emailUser = emailUserstorage.email; (o teste da erro quando colocamos o .email, porque eu não sei)
 
   return (
-    <div>
+    <div
+      className="flex flex-column items-center"
+    >
       <Header title="Profile" />
-      <p data-testid="profile-email">{ emailUserstorage }</p>
-      <Footer />
-      <BtnDoneRecipes />
-      <BtnFavoriteRecipes />
-      <BtnLogout />
+      <p
+        className="text-darkBlue text-xl m-16"
+        data-testid="profile-email"
+      >
+        { emailUserstorage.email }
+      </p>
+      <div className="flex flex-column items-center">
+        <BtnDoneRecipes />
+        <BtnFavoriteRecipes />
+        <BtnLogout />
+        <Footer />
+      </div>
     </div>
   );
 }

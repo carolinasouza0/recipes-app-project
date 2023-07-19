@@ -18,12 +18,10 @@ function Header({ title }) {
   }, [title]);
 
   return (
-    <header
-      // className="fixed"
-    >
+    <header>
       <div>
         <div
-          className="flex bg-lightYellow buttons-container rounded-b-lg space-x-28 p-1"
+          className="flex bg-lightYellow buttons-container rounded-b-lg space-x-32 p-1"
         >
           {/* <img
             className="w-0.5"
