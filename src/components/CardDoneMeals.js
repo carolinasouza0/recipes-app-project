@@ -26,7 +26,7 @@ function CardDoneMeals({ item, index }) {
       >
         <Link
           to={ `/meals/${item.id}` }
-          className
+          className=""
         >
           <p
             data-testid={ `${index}-horizontal-name` }
