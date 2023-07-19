@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import profileIcon from '../images/Perfil.png';
-import searchIcon from '../images/searchIcon.svg';
+import searchIcon from '../images/icone pesquiar.png';
 import SearchBar from './SearchBar';
 import iconRecipe from '../images/ícone Recipes app.png';
 import iconDone from '../images/icone-done-recipes.png';
@@ -15,7 +15,7 @@ function Header({ title }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   useEffect(() => {
-    if (title === 'DONE RECIPES' || title === 'PROFILE'
+    if (title === 'DONE RECIPES' || title === 'Profile'
     || title === 'FAVORITE RECIPES') return setSearchIconCondition(false);
     setSearchIconCondition(true);
   }, [title]);
@@ -24,7 +24,7 @@ function Header({ title }) {
     <header>
       <div>
         <div
-          className="flex bg-lightYellow buttons-container rounded-b-lg space-x-32 p-1"
+          className="flex bg-lightYellow buttons-container space-x-32 p-1 w-full h-12"
         >
           <div
             className="flex items-center"
@@ -32,7 +32,7 @@ function Header({ title }) {
             <img
               src={ iconRecipe }
               alt="icon recipe"
-              className="w-10 h-10"
+              className="w-10 h-10 ml-2"
             />
             <img
               src={ logoApp }
@@ -40,32 +40,36 @@ function Header({ title }) {
               className="w-24 h-4 ml-4"
             />
           </div>
-          {
-            searchIconCondition && (
-              <button
-                className="hover:bg-darkYellow rounded-full min-w-max"
-                type="button"
-                onClick={ () => (setShowSearchBar(!showSearchBar)) }
-              >
-                <img
-                  src={ searchIcon }
-                  alt="search icon"
-                  data-testid="search-top-btn"
-                />
-              </button>
-            )
-          }
-          <button
-            className="hover:bg-darkYellow rounded-full min-w-max"
-            type="button"
-            onClick={ () => history.push('/profile') }
+          <div
+            className="flex items-center "
           >
-            <img
-              src={ profileIcon }
-              alt="profile icon"
-              data-testid="profile-top-btn"
-            />
-          </button>
+            {
+              searchIconCondition && (
+                <button
+                  className="mr-3"
+                  type="button"
+                  onClick={ () => (setShowSearchBar(!showSearchBar)) }
+                >
+                  <img
+                    src={ searchIcon }
+                    alt="search icon"
+                    data-testid="search-top-btn"
+                  />
+                </button>
+              )
+            }
+            <button
+              className="mr-3"
+              type="button"
+              onClick={ () => history.push('/profile') }
+            >
+              <img
+                src={ profileIcon }
+                alt="profile icon"
+                data-testid="profile-top-btn"
+              />
+            </button>
+          </div>
         </div>
         <SearchBar showSearchBar={ showSearchBar } />
       </div>

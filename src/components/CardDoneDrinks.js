@@ -7,43 +7,69 @@ function CardDoneDrinks({ item, index }) {
   // console.log(tags(item));
   return (
 
-    <div key={ index }>
-      <Link to={ `/drinks/${item.id}` }>
+    <div
+      key={ index }
+      className="flex justify-center w-11/12 h-44 mb-14
+    border-typeGray2 border-2 rounded-lg"
+    >
+      <Link
+        to={ `/drinks/${item.id}` }
+        className="w-80 h-44"
+      >
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ item.image }
           alt={ item.image }
-          width={ 250 }
+          className="w-72 h-[172px] rounded-l-lg"
         />
-        <h4
-          data-testid={ `${index}-horizontal-name` }
-        >
-          { item.name }
-        </h4>
       </Link>
-
-      <p
-        data-testid={ `${index}-horizontal-top-text` }
+      <div
+        className="flex flex-col w-80 h-44 ml-1 p-2"
       >
-        {` ${item.alcoholicOrNot}`}
-      </p>
-      {
-        item.tags.slice(0, limiteTag).map((tag, indexTag) => (
+        <Link
+          to={ `/drinks/${item.id}` }
+          className="text-typeBlack text-base font-bold no-underline"
+        >
           <p
-            key={ indexTag }
-            data-testid={ `${index}-${tag}-horizontal-tag` }
+            data-testid={ `${index}-horizontal-name` }
           >
-            { tag }
+            { item.name }
           </p>
-        ))
-      }
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        {/* aqui é a data que foi feita */}
-        { item.doneDate }
-      </p>
-      <BtnCompartilhar index={ index } type="drinks" idReference={ item.id } />
+        </Link>
+        <p
+          data-testid={ `${index}-horizontal-top-text` }
+          className="text-typeGray text-xs"
+        >
+          {` ${item.alcoholicOrNot}`}
+        </p>
+        <p
+          data-testid={ `${index}-horizontal-done-date` }
+          className="text-typeBlack text-sm"
+        >
+          {`Done in: ${item.doneDate}`}
+        </p>
+        <div
+          className="flex space-x-2 justify-center items-center"
+        >
+          {
+            item.tags.slice(0, limiteTag).map((tag, indexTag) => (
+              <p
+                key={ indexTag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+                className="text-typeGray text-xs  bg-typeGray2 rounded-lg px-2"
+              >
+                { tag }
+              </p>
+            ))
+          }
+        </div>
+        <div
+          className="relative left-28 -top-1"
+        >
+          <BtnCompartilhar index={ index } type="drinks" idReference={ item.id } />
+        </div>
+      </div>
+
     </div>
 
   );

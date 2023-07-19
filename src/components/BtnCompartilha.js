@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
-import shareImage from '../images/shareIcon.svg';
+import shareImage from '../images/Share.png';
 
 function BtnCompartilhar({ index, type, idReference }) {
   const [copyLink, setCopyLink] = useState(false);
@@ -17,7 +17,6 @@ function BtnCompartilhar({ index, type, idReference }) {
 
   return (
     <div>
-      { copyLink && <p>Link copied!</p> }
       <button
         // data-testid={ `${index}-horizontal-share-btn` }
         onClick={ handleShareClick }
@@ -26,8 +25,10 @@ function BtnCompartilhar({ index, type, idReference }) {
           data-testid={ `${index}-horizontal-share-btn` }
           src={ shareImage }
           alt="share"
+          className="w-6 h-6"
         />
       </button>
+      { copyLink && <p>Link copied!</p> }
     </div>
   );
 }

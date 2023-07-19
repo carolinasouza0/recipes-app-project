@@ -12,7 +12,7 @@ function Profile() {
     <div
       className="flex flex-column items-center"
     >
-      <Header title="Profile" />
+      <Header title="PROFILE" />
       <p
         className="text-darkBlue text-xl m-16"
         data-testid="profile-email"

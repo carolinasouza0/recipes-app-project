@@ -58,6 +58,7 @@ function BtnFavoritePage({ id, type, index, receiveRecipe }) {
           src={ blackHeartIcon }
           alt="favorite"
           data-testid={ `${index}-horizontal-favorite-btn` }
+          className="w-6 h-6"
         />
       </button>
     </div>

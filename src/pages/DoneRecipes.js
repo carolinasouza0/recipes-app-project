@@ -39,13 +39,15 @@ function DoneRecipes() {
     <div>
       <Header title="DONE RECIPES" />
       <div
-        className="flex justify-center"
+        className="flex justify-center mb-3"
       >
         <BtnFilterAll handleFilter={ handleCleanFilter } />
         <BtnMeals handleFilter={ handleFilterDoneMeal } />
         <BtnDrinks handleFilter={ handleFilterDoneDrink } />
       </div>
-      <div>
+      <div
+        className="flex flex-col justify-center items-center"
+      >
         {
           doneRecipes !== null && (
             doneRecipes.map((item, index) => (
