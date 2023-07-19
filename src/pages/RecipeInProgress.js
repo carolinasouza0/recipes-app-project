@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { getDetailsRecipe } from '../utils/FetchAPI';
 import FavoriteBtn from '../components/FavoriteBtnDetails';
-import shareImage from '../images/shareIcon.svg';
+import shareImage from '../images/Share.png';
 import '../styles/RecipeInProgress.css';
 
 function RecipeInProgress({ type }) {
@@ -66,6 +66,9 @@ function RecipeInProgress({ type }) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressData));
   };
 
+  const data = new Date();
+  const dataFormatada = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
+
   const handleFinishRecipe = () => {
     // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const completedRecipe = [...listDoneRecipes,
@@ -77,7 +80,7 @@ function RecipeInProgress({ type }) {
         alcoholicOrNot: favoriteType === 'drink' ? recipe[0]?.strAlcoholic : '',
         name: recipe[0][`str${typeOfRecipe}`],
         image: recipe[0][`str${typeOfRecipe}Thumb`],
-        doneDate: new Date(),
+        doneDate: dataFormatada,
         tags: recipe[0].strTags ? recipe[0].strTags.split(',') : [],
       }];
     // doneRecipes.push(completedRecipe);
@@ -122,43 +125,37 @@ function RecipeInProgress({ type }) {
           data-testid="recipe-photo"
         />
       </div>
-      <h3
-        className="text-center text-2xl relative font-black
-              uppercase -top-32 text-white tracking-widest"
-        data-testid="recipe-title"
+      <div
+        className="h-0"
       >
-        { recipe[0]?.strMeal || recipe[0]?.strDrink }
-      </h3>
-      <ul>
-        {listIngredients.map((ingredient, index) => (
-          <li key={ index }>
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              className={ completedIngredients.includes(index) ? 'strikethrough' : '' }
-            >
-              <input
-                type="checkbox"
-                data-testid={ `${index}-ingredient-checkbox` }
-                onChange={ () => handleCheckboxChange(index) }
-                checked={ completedIngredients.includes(index) }
-              />
-              {`${recipe[0][ingredient]} - ${recipe[0][`strMeasure${index + 1}`]}`}
-            </label>
-          </li>
-        ))}
-      </ul>
-      <h3>Instructions:</h3>
-      <p data-testid="instructions">{recipe.length !== 0 && recipe[0].strInstructions}</p>
-      <div>
-        { copyLink && <p>Link copied!</p> }
+        <h3
+          className="text-center text-2xl relative font-black
+              uppercase -top-32 text-white tracking-widest"
+          data-testid="recipe-title"
+        >
+          { recipe[0]?.strMeal || recipe[0]?.strDrink }
+        </h3>
+        <h4
+          className="text-center text-xl relative font-black
+              uppercase -top-32 text-white tracking-widest"
+          data-testid="recipe-category"
+        >
+          {recipe[0]?.strCategory}
+        </h4>
+      </div>
+      <div
+        className="relative -top-52 left-72"
+      >
         <button
           type="button"
           data-testid="share-btn"
           onClick={ handleShareClick }
+          className="mr-3"
         >
           <img
             src={ shareImage }
             alt="share"
+            className="w-6 h-6"
           />
 
         </button>
@@ -168,18 +165,78 @@ function RecipeInProgress({ type }) {
           recipe={ recipe }
         />
       </div>
+      { copyLink
+        && (
+          <p
+            className="text-white text-sm font-bold relative -top-52
+           left-60
+          rounded-md p-2 bg-darkYellow w-28 h-10 text-center mt-1"
+          >
+            Link copied!
 
-      <h3 data-testid="recipe-category">
-        Categoria:
-      </h3>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        disabled={ !allIngredientsChecked }
-        onClick={ handleFinishRecipe }
+          </p>
+        )}
+      <h3
+        className="text-typeBlack text-xl font-bold ml-6"
       >
-        Finish Recipe
-      </button>
+        Ingredients:
+
+      </h3>
+      <div className="flex justify-center">
+        <div
+          className="w-80 border rounded-md flex items-center"
+        >
+          <ul>
+            {listIngredients.map((ingredient, index) => (
+              <li key={ index }>
+                <label
+                  data-testid={ `${index}-ingredient-step` }
+                  className={ completedIngredients.includes(index)
+                    ? 'strikethrough' : '' }
+                >
+                  <input
+                    type="checkbox"
+                    data-testid={ `${index}-ingredient-checkbox` }
+                    onChange={ () => handleCheckboxChange(index) }
+                    checked={ completedIngredients.includes(index) }
+                  />
+                  {`${recipe[0][ingredient]} - ${recipe[0][`strMeasure${index + 1}`]}`}
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <h3
+        className="text-typeBlack text-xl font-bold ml-6 mt-8"
+      >
+        Instructions:
+
+      </h3>
+      <div className="flex justify-center">
+        <p
+          className="w-80 border rounded-md p-4 text-sm"
+          data-testid="instructions"
+        >
+          {recipe.length !== 0 && recipe[0].strInstructions}
+
+        </p>
+      </div>
+      <div
+        className="flex justify-center"
+      >
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ !allIngredientsChecked }
+          onClick={ handleFinishRecipe }
+          className={ `w-80 h-10 font-bold rounded-md text-white text-base text-center ${
+            allIngredientsChecked ? 'bg-darkYellow' : 'bg-lightGray'
+          }` }
+        >
+          Finish Recipe
+        </button>
+      </div>
     </div>
   );
 }
