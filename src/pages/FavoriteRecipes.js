@@ -5,6 +5,7 @@ import BtnMeals from '../components/BtnMeals';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import CardFavoriteRecipes from '../components/CardFavoriteRecipes';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -39,12 +40,15 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="FAVORITE RECIPES" />
-      <div>
+      <div
+        className="flex justify-center mb-3"
+      >
         <BtnFilterAll handleFilter={ handleAllFilter } />
         <BtnMeals handleFilter={ handleFilterFavoriteMeal } />
         <BtnDrinks handleFilter={ handleFilterFavoriteDrink } />
       </div>
       <CardFavoriteRecipes listOfRecipes={ favoriteRecipes } />
+      <Footer />
     </div>
 
   );
