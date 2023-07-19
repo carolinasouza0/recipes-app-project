@@ -42,7 +42,7 @@ function Drinks() {
     <div>
       <Header title="DRINKS" />
       <section
-        className="p-2 border-black flex-row mx-2  "
+        className="p-2 w-96 mx-2 "
       >
         {
           arrCategoryDrinks.slice(0, limiteCategory).map((item, index) => (
@@ -55,7 +55,7 @@ function Drinks() {
         }
         <BtnAll />
       </section>
-      <section className="flex-row border-solid border-2 border-black ">
+      <section className="flex flex-wrap border-solid border border-lightPurple ">
         {
           arrCardDrinks !== null && (
             arrCardDrinks.slice(0, limiteCard).map((item, index) => (
@@ -68,7 +68,6 @@ function Drinks() {
             )))
         }
       </section>
-
       <Footer />
     </div>
   );

@@ -24,7 +24,7 @@ function Header({ title }) {
     <header>
       <div>
         <div
-          className="flex bg-lightYellow justify-between items-center px-4 py-2"
+          className="flex bg-lightYellow buttons-container rounded-b-lg space-x-32 p-1"
         >
           <div
             className="flex items-center"

@@ -38,7 +38,7 @@ function Meals() {
     <div>
       <Header title="MEALS" />
       <section
-        className="p-2 border-black w-96  mx-2  "
+        className="p-2 w-96 mx-2  "
       >
         {
           arrCategoryMeals.slice(0, limiteCategory).map((item, index) => (
@@ -51,7 +51,7 @@ function Meals() {
         }
         <BtnAll />
       </section>
-      <section className="flex flex-wrap border-solid border-2 border-black ">
+      <section className="flex flex-wrap border-solid border border-lightPurple ">
         {
           arrCardMeals !== null && (
             arrCardMeals.slice(0, limiteCard).map((item, index) => (
