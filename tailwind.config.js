@@ -13,6 +13,7 @@ module.exports = {
       typeBlack: '#1A1B1C',
       lightGray: '#B1B1B1',
       typeGray: '#797D86',
+      typeGray2: '#D9D9D9',
     },
     extend: {
       width: {

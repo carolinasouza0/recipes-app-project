@@ -5,48 +5,74 @@ import BtnFavoritePage from './BtnFavoritePage';
 
 function CardFavoriteRecipes({ listOfRecipes }) {
   return (
-    <div>
+    <div
+      className="flex flex-col items-center"
+    >
       {
         listOfRecipes.map((recipe, index) => (
-          <div key={ index }>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+          <div
+            key={ index }
+            className="flex justify-center w-11/12 h-44 mb-14
+       border-typeGray2 border-2 rounded-lg"
+          >
+            <Link
+              to={ `/${recipe.type}s/${recipe.id}` }
+              className="w-80 h-44"
+            >
               <img
                 src={ recipe.image }
                 alt={ recipe.name }
                 data-testid={ `${index}-horizontal-image` }
-                width={ 250 }
+                className="w-72 h-[172px] rounded-l-lg"
               />
             </Link>
-            <div>
+            <div
+              className="
+            flex flex-col w-80 h-44 ml-1 p-2"
+            >
+              <Link
+                to={ `/${recipe.type}s/${recipe.id}` }
+                className="text-typeBlack text-base font-bold no-underline"
+              >
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  { recipe.name }
+
+                </p>
+              </Link>
               {
                 recipe.type === 'meal' ? (
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
+                    className="text-typeGray text-xs"
                   >
                     { `${recipe.nationality} - ${recipe.category}` }
                   </p>
                 ) : (
-                  <p data-testid={ `${index}-horizontal-top-text` }>
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className="text-typeGray text-xs"
+                  >
                     { recipe.alcoholicOrNot }
                   </p>
                 )
               }
-              <Link to={ `/${recipe.type}s/${recipe.id}` }>
-                <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-              </Link>
-            </div>
-            <div>
-              <BtnCompartilhar
-                index={ index }
-                type={ recipe.type === 'meal' ? 'meals' : 'drinks' }
-                idReference={ recipe.id }
-              />
-              <BtnFavoritePage
-                index={ index }
-                type={ recipe.type === 'meal' ? 'meals' : 'drinks' }
-                id={ recipe.id }
-                receiveRecipe={ [recipe] }
-              />
+              <div
+                className="flex"
+              >
+                <BtnCompartilhar
+                  index={ index }
+                  type={ recipe.type === 'meal' ? 'meals' : 'drinks' }
+                  idReference={ recipe.id }
+                />
+                <BtnFavoritePage
+                  index={ index }
+                  type={ recipe.type === 'meal' ? 'meals' : 'drinks' }
+                  id={ recipe.id }
+                  receiveRecipe={ [recipe] }
+                />
+              </div>
             </div>
           </div>
         ))

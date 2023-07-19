@@ -9,24 +9,27 @@ function CardDoneMeals({ item, index }) {
   return (
     <div
       key={ index }
-      className="flex w-80 h-36 mb-14"
+      className="flex justify-center w-11/12 h-44 mb-14
+       border-typeGray2 border-2 rounded-lg"
     >
       <Link
         to={ `/meals/${item.id}` }
+        className="w-80 h-44"
       >
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ item.image }
           alt={ item.image }
-          width={ 250 }
+          className="w-72 h-[172px] rounded-l-lg"
         />
       </Link>
       <div
-        className="border-2 border-solid border-black rounded-lg"
+        className="
+        flex flex-col w-80 h-44 ml-1 p-2"
       >
         <Link
           to={ `/meals/${item.id}` }
-          className=""
+          className="text-typeBlack text-base font-bold no-underline"
         >
           <p
             data-testid={ `${index}-horizontal-name` }
@@ -36,25 +39,36 @@ function CardDoneMeals({ item, index }) {
         </Link>
         <p
           data-testid={ `${index}-horizontal-top-text` }
+          className="text-typeGray text-xs"
         >
           {` ${item.nationality} - ${item.category}`}
         </p>
-        {
-          item.tags.slice(0, limiteTag).map((tag, indexTag) => (
-            <p
-              key={ indexTag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-            >
-              { tag }
-            </p>
-          ))
-        }
         <p
           data-testid={ `${index}-horizontal-done-date` }
+          className="text-typeBlack text-sm"
         >
-          { item.doneDate }
+          {`Done in: ${item.doneDate}`}
         </p>
-        <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
+        <div
+          className="flex space-x-2 justify-center items-center"
+        >
+          {
+            item.tags.slice(0, limiteTag).map((tag, indexTag) => (
+              <p
+                key={ indexTag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+                className="text-typeGray text-xs  bg-typeGray2 rounded-lg px-2"
+              >
+                { tag }
+              </p>
+            ))
+          }
+        </div>
+        <div
+          className="relative left-28 -top-1"
+        >
+          <BtnCompartilhar index={ index } type="meals" idReference={ item.id } />
+        </div>
       </div>
     </div>
   );

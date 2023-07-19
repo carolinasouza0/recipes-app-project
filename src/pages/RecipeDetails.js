@@ -133,13 +133,13 @@ function RecipeDetails({ type }) {
               recipe={ recipe }
             />
           </div>
-          {
+          {/* {
             type === 'drinks' && (
               <h4 data-testid="recipe-category">
                 { recipe[0].strAlcoholic }
               </h4>
             )
-          }
+          } */}
           {
             copyLink
           && (

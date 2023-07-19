@@ -19,7 +19,7 @@ function BtnDrinks({ handleFilter }) {
       data-testid="filter-by-drink-btn"
       onClick={ handleFilter }
       className="rounded-lg bg-lightYellow w-16
-      mx-0.5 text-xs hover:bg-darkYellow text-lightPurple"
+      mx-0.5 text-xs hover:bg-darkYellow text-lightPurple p-1"
     >
       Drinks
     </button>

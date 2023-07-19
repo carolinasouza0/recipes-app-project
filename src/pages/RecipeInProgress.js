@@ -66,6 +66,9 @@ function RecipeInProgress({ type }) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressData));
   };
 
+  const data = new Date();
+  const dataFormatada = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
+
   const handleFinishRecipe = () => {
     // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const completedRecipe = [...listDoneRecipes,
@@ -77,7 +80,7 @@ function RecipeInProgress({ type }) {
         alcoholicOrNot: favoriteType === 'drink' ? recipe[0]?.strAlcoholic : '',
         name: recipe[0][`str${typeOfRecipe}`],
         image: recipe[0][`str${typeOfRecipe}Thumb`],
-        doneDate: new Date(),
+        doneDate: dataFormatada,
         tags: recipe[0].strTags ? recipe[0].strTags.split(',') : [],
       }];
     // doneRecipes.push(completedRecipe);
