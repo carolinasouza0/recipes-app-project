@@ -11,14 +11,14 @@
 
 
 body {
-  width: 360px;
-  height: 640px; 
+  /* width: 360px;
+  /* height: 640px; 
   /* padding: 20px ; */
 
-  /* margin: auto; */
+  margin: auto;
 
 
-  /* margin: 0; */
+   margin: 0; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   

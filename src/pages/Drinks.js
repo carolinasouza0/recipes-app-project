@@ -40,7 +40,7 @@ function Drinks() {
   const limiteCategory = 5;
   return (
     <div>
-      <Header title="Drinks" />
+      <Header title="DRINKS" />
       <section
         className="p-2 border-black flex-row mx-2  "
       >
