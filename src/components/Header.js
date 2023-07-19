@@ -18,27 +18,22 @@ function Header({ title }) {
   }, [title]);
 
   return (
-    <header className="border-solid border-2 border-sky-500">
+    <header
+      // className="fixed"
+    >
       <div>
-        <div className="flex buttons-container border-solid border-2 border-red-500 space-x-72">
+        <div
+          className="flex bg-lightYellow buttons-container rounded-b-lg space-x-28 p-1"
+        >
           {/* <img
+            className="w-0.5"
             src="../images/ícone Recipes app.svg"
             alt="icone Recipes"
           /> */}
-          <button
-            className="text-rigt"
-            type="button"
-            onClick={ () => history.push('/profile') }
-          >
-            <img
-              src={ profileIcon }
-              alt="profile icon"
-              data-testid="profile-top-btn"
-            />
-          </button>
           {
             searchIconCondition && (
               <button
+                className="hover:bg-darkYellow rounded-full min-w-max"
                 type="button"
                 onClick={ () => (setShowSearchBar(!showSearchBar)) }
               >
@@ -50,17 +45,34 @@ function Header({ title }) {
               </button>
             )
           }
+          <h2
+            className="text-center text-darkBlue min-w-max   "
+            data-testid="page-title"
+          >
+            { title }
+          </h2>
+          <button
+            className="hover:bg-darkYellow rounded-full min-w-max"
+            type="button"
+            onClick={ () => history.push('/profile') }
+          >
+            <img
+              src={ profileIcon }
+              alt="profile icon"
+              data-testid="profile-top-btn"
+            />
+          </button>
         </div>
         <SearchBar showSearchBar={ showSearchBar } />
 
       </div>
       <div>
-        <h2
-          className="text-center text-violet-900 "
+        {/* <h2
+          className="text-center text-darkBlue "
           data-testid="page-title"
         >
           { title }
-        </h2>
+        </h2> */}
       </div>
     </header>
   );

@@ -19,15 +19,14 @@ function BtnCategory({ categoryName, route }) {
   };
 
   return (
-    <div>
-      <button
-        data-testid={ `${categoryName}-category-filter` }
-        value={ categoryName }
-        onClick={ (e) => handleFilterCategory(e.target.value) }
-      >
-        { categoryName }
-      </button>
-    </div>
+    <button
+      className="rounded-lg bg-lightYellow w-24 mx-2.5 text-xs hover:bg-darkYellow text-lightPurple hover:text-darkBlue bg-lightYellow"
+      data-testid={ `${categoryName}-category-filter` }
+      value={ categoryName }
+      onClick={ (e) => handleFilterCategory(e.target.value) }
+    >
+      { categoryName }
+    </button>
   );
 }
 

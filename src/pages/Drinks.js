@@ -41,28 +41,34 @@ function Drinks() {
   return (
     <div>
       <Header title="Drinks" />
-      {
-        arrCategoryDrinks.slice(0, limiteCategory).map((item, index) => (
-          <BtnCategory
-            key={ index }
-            categoryName={ item.strCategory }
-            route="drinks"
-          />
-        ))
-      }
-      <BtnAll />
-      <h1>Drinks</h1>
-      {
-        arrCardDrinks !== null && (
-          arrCardDrinks.slice(0, limiteCard).map((item, index) => (
-            <Card
+      <section
+        className="p-2 border-black flex-row mx-2  "
+      >
+        {
+          arrCategoryDrinks.slice(0, limiteCategory).map((item, index) => (
+            <BtnCategory
               key={ index }
-              item={ item }
-              index={ index }
+              categoryName={ item.strCategory }
               route="drinks"
             />
-          )))
-      }
+          ))
+        }
+        <BtnAll />
+      </section>
+      <section className="flex-row border-solid border-2 border-black ">
+        {
+          arrCardDrinks !== null && (
+            arrCardDrinks.slice(0, limiteCard).map((item, index) => (
+              <Card
+                key={ index }
+                item={ item }
+                index={ index }
+                route="drinks"
+              />
+            )))
+        }
+      </section>
+
       <Footer />
     </div>
   );

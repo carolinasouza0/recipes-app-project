@@ -8,25 +8,35 @@ function Card({ item, index, route }) {
 
   // console.log(`${index}-recipe-card`);
   return (
-    <Link
-      // href={ `/${route}/${item[idRoute]}` }
-      to={ `/${route}/${item[idRoute]}` }
-      data-testid={ `${index}-recipe-card` }
+    <section
+      className="flex m-4 border-solid border-2 border-lightGray rounded-lg shadow-xl max-w-[40%] h-[40%] m-auto"
     >
-      <div
-        // data-testid={ `${index}-recipe-card` }
-        key={ index }
+      <Link
+        // href={ `/${route}/${item[idRoute]}` }
+        to={ `/${route}/${item[idRoute]}` }
+        data-testid={ `${index}-recipe-card` }
       >
-        <img
-          data-testid={ `${index}-card-img` }
-          src={ item[`str${mealOrDrink}Thumb`] }
-          alt={ item[`str${mealOrDrink}Thumb`] }
-          // width="100%"
-          // height="315px"
-        />
-        <p data-testid={ `${index}-card-name` }>{ item[`str${mealOrDrink}`]}</p>
-      </div>
-    </Link>
+        <div
+          // data-testid={ `${index}-recipe-card` }
+          key={ index }
+        >
+          <img
+            className="max-w-[95%] rounded-lg m-auto hover:max-w-[98%] hover:p-0"
+            data-testid={ `${index}-card-img` }
+            src={ item[`str${mealOrDrink}Thumb`] }
+            alt={ item[`str${mealOrDrink}Thumb`] }
+            // width="100%"
+            // height="315px"
+          />
+          <p
+            className="text-center text-darkBlue no-underline "
+            data-testid={ `${index}-card-name` }
+          >
+            { item[`str${mealOrDrink}`]}
+          </p>
+        </div>
+      </Link>
+    </section>
   );
 }
 

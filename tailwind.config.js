@@ -14,7 +14,11 @@ module.exports = {
       lightGray: '#B1B1B1',
       typeGray: '#797D86',
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        // 'icon-Recipes': "url('./src/images/iconRecipes')",
+      },
+    },
   },
   plugins: [],
 };

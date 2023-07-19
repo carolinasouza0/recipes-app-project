@@ -7,7 +7,7 @@ function Footer() {
   return (
     <div
       data-testid="footer"
-      className="footerPosition"
+      className="footerPosition "
     >
       <button>
         <Link to="/drinks">

@@ -77,19 +77,28 @@ function SearchBar({ showSearchBar }) {
   // const limite = 12;
 
   return (
-    <div className="bg-black">
+    <div>
       {showSearchBar && (
-        <div>
+        <div
+          className="flex-colun items-center bg-darkBlue w-11/12 h-32 m-auto rounded-b-lg  "
+        >
           <input
+            className="p-2  w-full border-darkBlue rounded-b-lg "
+            placeholder="Search"
             type="text"
             name="search-input"
             value={ searchInput }
             onChange={ ({ target: { value } }) => setSearchInput(value) }
             data-testid="search-input"
           />
-          <div>
-            <label>
+          <div
+            className="text-white flex-row space-x-4 ml-10 my-2"
+          >
+            <label
+              className="hover:text-lightGray"
+            >
               <input
+                // className=""
                 type="radio"
                 name="searchType"
                 value="ingredient"
@@ -99,10 +108,9 @@ function SearchBar({ showSearchBar }) {
               />
               Ingredient
             </label>
-          </div>
-
-          <div>
-            <label>
+            <label
+              className="hover:text-lightGray"
+            >
               <input
                 type="radio"
                 name="searchType"
@@ -113,10 +121,9 @@ function SearchBar({ showSearchBar }) {
               />
               Name
             </label>
-          </div>
-
-          <div>
-            <label>
+            <label
+              className="hover:text-lightGray"
+            >
               <input
                 type="radio"
                 name="searchType"
@@ -129,7 +136,11 @@ function SearchBar({ showSearchBar }) {
             </label>
           </div>
 
-          <button onClick={ getSearchAPI } data-testid="exec-search-btn">
+          <button
+            className="hover:bg-darkYellow text-lightPurple rounded-lg w-64 p-1 mx-12 my-1 hover:text-darkBlue bg-lightYellow  "
+            onClick={ getSearchAPI }
+            data-testid="exec-search-btn"
+          >
             Search
           </button>
         </div>

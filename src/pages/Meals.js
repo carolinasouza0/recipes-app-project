@@ -35,29 +35,37 @@ function Meals() {
   const limiteCard = 12;
   const limiteCategory = 5;
   return (
-    <div className="flex flex-col">
+    <div
+      // className="flex-column "
+    >
       <Header title="Meals" />
-      {
-        arrCategoryMeals.slice(0, limiteCategory).map((item, index) => (
-          <BtnCategory
-            key={ index }
-            categoryName={ item.strCategory }
-            route="meals"
-          />
-        ))
-      }
-      <BtnAll />
-      {
-        arrCardMeals !== null && (
-          arrCardMeals.slice(0, limiteCard).map((item, index) => (
-            <Card
+      <section
+        className="p-2 border-black w-96  mx-2  "
+      >
+        {
+          arrCategoryMeals.slice(0, limiteCategory).map((item, index) => (
+            <BtnCategory
               key={ index }
-              item={ item }
-              index={ index }
+              categoryName={ item.strCategory }
               route="meals"
             />
-          )))
-      }
+          ))
+        }
+        <BtnAll />
+      </section>
+      <section className="flex flex-wrap border-solid border-2 border-black ">
+        {
+          arrCardMeals !== null && (
+            arrCardMeals.slice(0, limiteCard).map((item, index) => (
+              <Card
+                key={ index }
+                item={ item }
+                index={ index }
+                route="meals"
+              />
+            )))
+        }
+      </section>
       <Footer />
     </div>
   );

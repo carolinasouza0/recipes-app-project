@@ -15,6 +15,7 @@ function BtnFilterAll({ handleFilter }) {
 
   return (
     <button
+      className="rounded-lg bg-lightYellow w-16 mx-0.5 text-xs hover:bg-darkYellow text-lightPurple hover:text-darkBlue bg-lightYellow"
       data-testid="filter-by-all-btn"
       onClick={ () => handleFilter() }
     >

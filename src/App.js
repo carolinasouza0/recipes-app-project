@@ -13,7 +13,9 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div>
+    // width: 360px;
+    // height: 640px;
+    <div className="w-96 m-auto flex">
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/meals" render={ () => <Recipes type="meals" /> } />
