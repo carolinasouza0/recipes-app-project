@@ -35,7 +35,7 @@ function Meals() {
   const limiteCard = 12;
   const limiteCategory = 5;
   return (
-    <div>
+    <div className="flex flex-col">
       <Header title="Meals" />
       {
         arrCategoryMeals.slice(0, limiteCategory).map((item, index) => (
@@ -47,7 +47,6 @@ function Meals() {
         ))
       }
       <BtnAll />
-      <h1>Meals</h1>
       {
         arrCardMeals !== null && (
           arrCardMeals.slice(0, limiteCard).map((item, index) => (
