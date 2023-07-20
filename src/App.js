@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
@@ -12,6 +12,10 @@ import Profile from './pages/Profile';
 import Footer from './components/Footer';
 
 function App() {
+  useEffect(() => {
+    document.title = 'RECIPES app';
+  }, []);
+
   return (
     // width: 360px;
     // height: 640px;
